@@ -4,7 +4,7 @@
 
 - [Jira Board](https://besthotel.atlassian.net/jira/software/projects/KAN/boards/1)
 - [Lucid Chart](https://lucid.app/lucidchart/91586ef3-c35f-4402-a4d4-fbec383e4e44/edit?invitationId=inv_9bea5d7a-9031-4a6e-9edb-a6a132e28e08&page=0_0#)
-- 
+- [Internal Scrum doc](https://docs.google.com/document/d/1A2F4pp4xbDSbvhhBmr5oVJDEP0_kI6hquSftq41booA/edit?tab=t.0)
 - 
 
 
