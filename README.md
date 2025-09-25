@@ -1,5 +1,15 @@
 # Best Hotel Booking Project
 
+## Important links:
+
+- [Jira Board](https://besthotel.atlassian.net/jira/software/projects/KAN/boards/1)
+- [Lucid Chart](https://lucid.app/lucidchart/91586ef3-c35f-4402-a4d4-fbec383e4e44/edit?invitationId=inv_9bea5d7a-9031-4a6e-9edb-a6a132e28e08&page=0_0#)
+- 
+- 
+
+
+---
+
 ### Group Members:
 1. Sergio Ruelas
 2. Javier Herrera
@@ -22,6 +32,10 @@ If the user confirms the summary, user information will be requested. The user w
 - Tkinter platform to write software applications.
 - Due to lack of experience with databases amongst the group, we have decided to not use any databases for the project. 
 - The software will create a text file and be stored directly into the user’s desktop.
+
+---
+
+
 
 
 
