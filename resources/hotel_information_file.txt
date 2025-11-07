@@ -1,0 +1,38 @@
+#test file to make sure modify reservation screen 1 works
+
+Hotel Information File:
+
+Reservations:
+
+1. John Doe
+   1111 S 91st
+   Los Angeles, CA 
+   90001
+   (111)200-3000
+   
+   5543783
+   OCT 5-10th
+
+2. John Doe
+   1111 S 91st
+   Los Angeles, CA 
+   90001
+   (111)200-3000
+
+   1234567
+   OCT 23-25th
+
+3. John Doe
+   1111 S 91st
+   Los Angeles, CA 
+   90001
+   (111)200-3000
+
+   1254434
+   OCT 1-4th
+
+
+
+
+
+Cancelations:
