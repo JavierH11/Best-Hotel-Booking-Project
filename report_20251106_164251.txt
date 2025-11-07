@@ -1,0 +1,9 @@
+HOTEL BOOKING SYSTEM - COMPLETE REPORT
+==================================================
+
+Generated: 2025-11-06 16:42
+
+BOOKING SUMMARY:
+Total Reservations: 0
+
+DETAILED BOOKINGS:
