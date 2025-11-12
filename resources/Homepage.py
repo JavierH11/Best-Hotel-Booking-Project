@@ -1,6 +1,6 @@
 import tkinter as tk
-#from TestConnectClass import make_reservation_window
-from modify_reservation_screen1  import modify_reservation_window
+import createreservation
+import modify
 #from TestConnectClass3 import cancel_reservation_window
 #from TestConnectClass4 import manager_report_window
 
@@ -57,13 +57,15 @@ def main():
      #create make reservation frame with description and button
      make_reservation_title = "Make Reservation:"
      make_reservation_description = "Will be asked to select dates for a reservation.\n Will be asked number of guests for a room. \nWill be asked room type interested in."
-     make_reservation_command = modify_reservation_window
+     #NOTE: this line is to connect to create reservation; change/allow later
+     #make_reservation_command = createreservation.main.create_reservation_screen1
+     make_reservation_command = modify.modify_reservation_screen_1.modify_reservation_window
      makeRes = createWindow(frameTOP1, make_reservation_title, make_reservation_description, make_reservation_command)
 
      #create modify reservation frame with description and button
      modify_reservation_title = "Modify Reservation:"
      modify_reservation_description = "Will be asked for reservation number. \nWill be redirected to update information page."
-     modify_reservation_command = modify_reservation_window
+     modify_reservation_command = modify.modify_reservation_screen_1.modify_reservation_window
      modifyRes = createWindow(frameTOP1, modify_reservation_title, modify_reservation_description, modify_reservation_command)
 
      #cancel and manager report frames are both in bottom background frame
