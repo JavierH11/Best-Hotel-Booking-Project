@@ -2,31 +2,31 @@
 
 Hotel Information File:
 
-Reservations:
+RESERVATIONS:
 
-1. John Doe
+   John Doe
    1111 S 91st
    Los Angeles, CA 
-   90001
-   (111)200-3000
+   90011
+   (111)210-3000
    
    5543783
    OCT 5-10th
 
-2. John Doe
-   1111 S 91st
-   Los Angeles, CA 
-   90001
-   (111)200-3000
+   Doe John
+   2222 S 91st
+   Santa Monica, CA 
+   90022
+   (222)220-3000
 
    1234567
    OCT 23-25th
 
-3. John Doe
-   1111 S 91st
-   Los Angeles, CA 
-   90001
-   (111)200-3000
+   Jon Don
+   3333 S 91st
+   Culver City, CA 
+   90033
+   (333)230-3000
 
    1254434
    OCT 1-4th
@@ -35,4 +35,4 @@ Reservations:
 
 
 
-Cancelations:
+CANCELATIONS:
