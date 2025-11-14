@@ -1,0 +1,39 @@
+#DEFAULT information for "hotel_information_file.txt" since that file changes based on testing
+#This file is never altered by code/testing
+
+Hotel Information File:
+
+RESERVATIONS:
+
+   John Doe
+   1111 S 91st
+   Los Angeles, CA 
+   90011
+   (111)210-3000
+   
+   5543783
+   OCT 5-10th
+
+   Doe John
+   2222 S 91st
+   Santa Monica, CA 
+   90022
+   (222)220-3000
+
+   1234567
+   OCT 23-25th
+
+   Jon Don
+   3333 S 91st
+   Culver City, CA 
+   90033
+   (333)230-3000
+
+   1254434
+   OCT 1-4th
+
+
+
+
+
+CANCELATIONS:
