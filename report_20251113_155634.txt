@@ -1,0 +1,63 @@
+HOTEL BOOKING SYSTEM - COMPLETE REPORT
+============================================================
+
+Generated: 2025-11-13 15:56
+Total Reservations: 5
+
+DETAILED BOOKINGS:
+------------------------------------------------------------
+Conf#: CONF-Y2ZFJTDR
+  Guest: Sergio Ruelas
+  Email: ruelas.sergio@gmail.com
+  Phone: 8189879231
+  Room: Single
+  Check-in: 2025-11-14
+  Check-out: 2025-11-15
+  Nights: 1
+  Total: $100.0
+  Status: N/A
+------------------------------------------------------------
+Conf#: CONF-6VTD3B82
+  Guest: Sergio Ruelas
+  Email: ruelas.sergio@gmail.com
+  Phone: 8189879231
+  Room: Single
+  Check-in: 2025-11-14
+  Check-out: 2025-11-15
+  Nights: 1
+  Total: $100.0
+  Status: CANCELLED
+------------------------------------------------------------
+Conf#: CONF-ZGVK5RPX
+  Guest: Sergio Ruelas
+  Email: ruelas.sergio@gmail.com
+  Phone: 8189879231
+  Room: Single
+  Check-in: 2025-11-15
+  Check-out: 2025-11-22
+  Nights: 7
+  Total: $700.0
+  Status: CONFIRMED
+------------------------------------------------------------
+Conf#: CONF-CN2PEJ74
+  Guest: Sergio Ruelas
+  Email: ruelas.sergio@gmail.com
+  Phone: 8189879231
+  Room: Double
+  Check-in: 2025-11-14
+  Check-out: 2025-11-15
+  Nights: 1
+  Total: $150.0
+  Status: CANCELLED
+------------------------------------------------------------
+Conf#: CONF-R55MY9AN
+  Guest: Sergio Ruelas
+  Email: ruelas.sergio@gmail.com
+  Phone: 8189879231
+  Room: Double
+  Check-in: 2025-11-15
+  Check-out: 2025-11-22
+  Nights: 7
+  Total: $1050.0
+  Status: CANCELLED
+------------------------------------------------------------
