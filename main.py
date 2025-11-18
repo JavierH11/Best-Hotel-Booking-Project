@@ -6,9 +6,13 @@ import json
 import random
 import string
 import smtplib
+from models import Room
+from utils import validate_date , generate_conf_number, load_bookings, save_booking, update_booking_status, find_booking
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
+#from models
+'''
 # ============ DATA CLASS ============
 
 class Room:
@@ -20,7 +24,9 @@ class Room:
         self.num_beds = num_beds
         self.price = price
         self.amenities = amenities
-
+'''
+#from utils
+'''
 # ============ UTILITY FUNCTIONS ============
 
 def validate_date(date_string):
@@ -69,6 +75,7 @@ def find_booking(conf_num):
 def generate_conf_number():
     """Generate random confirmation number"""
     return 'CONF-' + ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+'''
 
 # ============ MAIN APPLICATION ============
 
