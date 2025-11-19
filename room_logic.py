@@ -1,4 +1,3 @@
-#```python
 """
 Hotel Booking System - Room Business Logic
 
@@ -122,4 +121,3 @@ def get_available_rooms(rooms, check_in, check_out, num_guests, num_beds, amenit
         available.append(room)
     
     return available
-#```
