@@ -53,7 +53,6 @@ def create_reservation(guest_info, room, preferences, sender_email, sender_passw
     """
     #This will generate a unique confirmation number for each user that creates a reservation
     conf_num = generate_conf_number()
-    
     #This will calculate the total price
     total_price = preferences['nights'] * room.price
     
@@ -74,7 +73,6 @@ def create_reservation(guest_info, room, preferences, sender_email, sender_passw
     
     #This will save the reservation reservation info to the storage
     save_reservation(reservation)
-    
     #This will send out a confirmation email to the user that their reservation was made along with the unique confirmation #
     email_subject = "Reservation Confirmation - Best Hotel Booking"
     email_body = f"""Dear {guest_info['name']},
@@ -98,10 +96,8 @@ Best Hotel Booking"""
     
     send_email(sender_email, sender_password, guest_info['email'], 
                email_subject, email_body)
-    
     return reservation
-
-
+    
 def modify_reservation(old_conf_num, new_guest_info, new_preferences, 
                    room, sender_email, sender_password):
     """
@@ -135,13 +131,10 @@ def modify_reservation(old_conf_num, new_guest_info, new_preferences,
     
     #This will cancel old reservation
     update_reservation_status(old_conf_num, "CANCELLED")
-    
     #This will generate a new confirmation number for the user
     new_conf_num = generate_conf_number()
-    
     #This will calculate the new total price
     new_total_price = new_preferences['nights'] * room.price
-    
     #This will create a new reservation
     new_reservation = {
         "confirmation_number": new_conf_num,
@@ -159,7 +152,6 @@ def modify_reservation(old_conf_num, new_guest_info, new_preferences,
     
     #This will then save that new reservation to the record
     save_reservation(new_reservation)
-    
     #This will lastly send out an email to the user for that modified reservation
     email_subject = "Reservation Modified - Best Hotel Booking"
     email_body = f"""Dear {new_guest_info['name']},
@@ -184,10 +176,8 @@ Best Hotel Booking"""
     
     send_email(sender_email, sender_password, new_guest_info['email'],
                email_subject, email_body)
-    
     return new_reservation
-
-
+                       
 def cancel_reservation(conf_num, reservation, sender_email, sender_password):
     """
     Cancel an existing reservation and send notification email.
@@ -211,11 +201,9 @@ def cancel_reservation(conf_num, reservation, sender_email, sender_password):
     """
     # Update reservation status to CANCELLED
     success = update_reservation_status(conf_num, "CANCELLED")
-    
     if success:
         # Generate cancellation confirmation number
         cancel_conf_num = f"CANCEL-{generate_conf_number()}"
-        
         # Send cancellation email
         email_subject = "reservation Cancelled - Best Hotel Booking"
         email_body = f"""Dear {reservation['guest_name']},
@@ -238,5 +226,4 @@ Best Hotel Booking"""
         
         send_email(sender_email, sender_password, reservation['guest_email'],
                    email_subject, email_body)
-    
     return success
