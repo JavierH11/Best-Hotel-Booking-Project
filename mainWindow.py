@@ -24,7 +24,7 @@ def main():
         None
     """
     # Create main tkinter window
-    root = tk.tk()
+    root = tk.Tk()
 
     # Initialize application
     app = HotelBookingApp(root)
