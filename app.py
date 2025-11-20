@@ -14,10 +14,10 @@ from datetime import datetime, timedelta
 
 # Import from other modules
 from models import Room
-#from utils import validate_date, generate_conf_number
+from utils import validate_date, generate_conf_number
 #from storage import load_bookings, find_booking
 #from createReservation_logic import create_reservation, modify_reservation, cancel_reservation
-#from room_logic import get_available_rooms
+from room_logic import get_available_rooms
 #from email_service import send_email
 
 class HotelBookingApp:
@@ -130,5 +130,100 @@ class HotelBookingApp:
         tk.Button(frame, text="📊 Admin Report", 
                  font=("Arial", 12), bg="purple", fg="white",
                  command=self.show_login, width=30, height=2).pack(pady=10)
+        
+    def booking_step1(self):
+        """
+        Display booking step 1: Guest preferences.
 
+        Allows user to enter:
+            - Check-in date
+            - Check-out date
+            - Number of guests
+            - Number of beds
+            - Preferred amenities
+        
+        User clicks "Search Rooms" to proceed to step 2
+        """
+        self.clear_screen()
+        frame = tk.Frame(self.root)
+        frame.pack(fill="both", expand= True, padx=20,pady=20)
+        self.current_frame=frame
+
+        # Title
+        tk.Label(frame, text="Step 1: Your Preferences", font=("Arial",16,"bold")).pack(pady=10)
+
+        # Check-In Date Input
+        tk.Label(frame,teext="Check-In (YYYY-MM-DD):").pack()
+        check_in_entry = tk.Entry(frame,width=20).pack()
+        check_in_entry.insert(0, (datetime.now() + timedelta(day=2)).strftime("%Y-%m-%d"))
+
+        # Check-Out Date Input
+        tk.Label(frame, text="Check-Out (YYYY-MM-DD):",pady=10).pack()
+        check_out_entry = tk.Entry(frame,width=20).pack()
+        check_out_entry.insert(0, (datetime.now() + timedelta(day=2)).strftime("%Y-%m-%d"))
+
+        # Number of guests dropdown menu
+        tk.Label(frame, text="Guests:",pady=10).pack()
+        guests_var = tk.StringVar(value="1")
+        ttk.Combobox(frame, textvariable=guests_var, values=["1","2","3","4"],width=10,state="readonly").pack()
+
+        # Number of beds dropdown menu
+        tk.Label(frame, text="Beds:",pady=10).pack()
+        beds_var = tk.StringVar(value="1")
+        ttk.Combobox(frame, textvariable=guests_var, values=["1","2","3"],width=10,state="readonly").pack()
+
+        # Amenities checkbox selection
+        tk.Label(frame, text="Amenities:",pady=10).pack()
+        amenity_check={}
+        for amenity in ["Wifi","AC", "Bathtub", "Mini Bar"]:
+            var = tk.BooleanVar()
+            tk.Checkbutton(frame,text=amenity, variable=var).pack(anchor="w",padx=20)
+            amenity_check[amenity] = var
+
+        def search():
+            "Handle Search Button - validate and proceed to step 2"
+            # Get User Input
+            check_in = check_in_entry.get()
+            check_out = check_out_entry.get()
+
+            # Validate Dates
+            if not validate_date(check_in) or not validate_date(check_out):
+                messagebox.showerror("ERROR", "Invalid date format. Use YYYY-MM-DD")
+                return
+            
+            # Check that check-out is after check-in
+            if validate_date(check_out) <= validate_date(check_in):
+                messagebox.showerror("ERROR", "Check-out date must be after check-in date")
+                return
+
+            # Get Selected Amenities
+            amenities = [a for a, v in amenity_check.items() if v.get()]
+
+            # Get available rooms based on filters
+            available = get_available_rooms(
+                self.rooms, check_in, check_out,
+                int(guests_var.get()), int(beds_var.get()), amenities
+                )
+            
+            # Check if any rooms available
+            if not available:
+                messagebox.showerror(
+                    "No Availability",
+                    "No rooms match your criteria.\nTry different dates or preferences."
+                    )
+                return
+            
+            # Store preferences and proceed to step 2
+            prefs={
+                "check_in":check_in,
+                "check_out":check_out,
+                "nights": (validate_date(check_out) - validate_date(check_in)).days
+            }
+            self.booking_step2(available, prefs)
+
+        # Buttons
+        tk.Button(frame, text="Search Rooms", command=search, width=30,
+                  height=2, bg="blue", fg="white", font=("Arial", 12)).pack(pady=15)
+        tk.Button(frame, text="Back", command=self.show_homepage, width=30,
+                  bg="gray", font=("Arial", 11)).pack()
     print("testing testing")
