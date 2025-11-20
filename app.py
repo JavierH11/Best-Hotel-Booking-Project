@@ -453,4 +453,186 @@ class HotelBookingApp:
                   fg="white", command=self.show_homepage).pack(pady=20)
         
     # =========== MODIFY RESERVATION ===========
+    def show_modify(self):
+        """
+        Display modify reservation screen
+
+        Ask user for confirmation number of existing booking.
+        Searches for booking and proceeds to modification screen if found
+        """
+        self.clear_screen()
+        frame = tk.Frame(self.root)
+        frame.pack(fill="both", expand=True, padx=20,pady=20)
+        self.current_frame = frame
+
+        tk.Label(frame, text="Modify Reservation", font=("Arial",18, "bold")).pack(pady=20)
+        tk.Label(frame, text="Confirmation Number:").pack()
+
+        conf_entry = tk.Entry(frame, width=30, font=("Arial",12))
+        conf_entry.pack(pady=10)
+
+        def search():
+            """Search for Booking"""
+            conf = conf_entry.get()
+            booking = find_booking(conf)
+            if not booking:
+                messagebox.showerror("ERROR", "Booking Not Found")
+                return
+            self.modify_booking_screen(conf, booking)
+
+        tk.Button(frame, text="Search", command=search, bg="blue", fg="white", width=30).pack(pady=10)
+        tk.Button(frame, text="Back", command=self.show_homepage, bg="gray", width=30).pack()
+
+    def modify_booking_screen(self, old_conf, old_booking):
+        """Modify Booking Screen - allow user to change dates and details"""
+        self.clear_screen()
+        frame = tk.Frame(self.root)
+        frame.pack(fill="both", expand=True, padx=20, pady=20)
+        self.current_frame = frame
+
+        tk.Label(frame, text="Modify Reservation", font=("Arial", 16, "bold")).pack(pady=10)
+
+        # Current Booking
+        old_frame = tk.LabelFrame(frame, text="Current Booking",padx=10,pady=10,bg="lightyellow")
+        old_frame.pack(fill="x", pady=10)
+        tk.Label(old_frame, text=f"room: {old_booking['room_type']}\n"
+                 f"Check-in: {old_booking['check_in']}\n"
+                 f"Check-out: {old_booking['check_out']}\n"
+                 f"Total: ${old_booking['total_price']}",
+                 bg="lightyellow").pack(anchor="w")
+        
+        # New Dates
+        new_frame = tk.LabelFrame(frame, text="New Dates", padx=10,pady=10)
+        new_frame.pack(fill="x",pady=10)
+
+        tk.Label(new_frame, text="Check-in:").pack()
+        check_in_entry = tk.Entry(new_frame, width=20)
+        check_in_entry.pack()
+        check_in_entry.insert(0, (datetime.now() + timedelta(days=5)).strftime("%Y-%m-%d"))
+
+        tk.Label(new_frame, text="Check-in:").pack()
+        check_out_entry = tk.Entry(new_frame, width=20)
+        check_out_entry.pack()
+        check_out_entry.insert(0, (datetime.now() + timedelta(days=5)).strftime("%Y-%m-%d"))
+
+        # Guest Info
+        guest_frame = tk.LabelFrame(frame, text="Guest Info", padx=10, pady=10)
+        guest_frame.pack(fill="x",pady=10)
+
+        tk.Label(guest_frame, text="Name:").pack()
+        name_entry = tk.Entry(guest_frame, width=30)
+        name_entry.pack()
+        name_entry.insert(0, old_booking['guest_name'])
+
+        tk.Label(guest_frame, text="Email:", pady=10).pack()
+        email_entry = tk.Entry(guest_frame, width=30)
+        email_entry.pack()
+        email_entry.insert(0, old_booking['guest_email'])
+
+        tk.Label(guest_frame, text="Phone:", pady=10).pack()
+        phone_entry = tk.Entry(guest_frame, width=20)
+        phone_entry.pack()
+        phone_entry.insert(0, old_booking['guest_phone'])
+
+        tk.Label(guest_frame, text="Card:", pady=10).pack()
+        card_entry = tk.Entry(guest_frame, width=20)
+        card_entry.pack()
+
+        def save_changes():
+            """Save Modifications"""
+            check_in = check_in_entry.get()
+            check_out = check_out_entry.get()
+
+            if not validate_date(check_in) or not validate_date(check_out):
+                messagebox.showerror("ERROR", "Invalid Dates")
+                return
+            if not card_entry.get():
+                messagebox.showerror("ERROR", "Enter Card Number")
+                return
+            
+            nights = (validate_date(check_out) - validate_date(check_in)).days
+            if nights <= 0:
+                messagebox.showerror("ERROR", "Invalid Date Range")
+                return
+            
+            room = next((r for r in self.rooms if r.room_type == old_booking['room_type']),None)
+            new_guest_info = {
+                'name': name_entry.get(),
+                'email': email_entry.get(),
+                'phone': phone_entry.get(),
+                'card': card_entry.get()
+            }
+            new_prefs={
+                'check_in': check_in,
+                'check-out': check_out,
+                'nights': nights
+            }
+
+            modify_reservation(old_conf, new_guest_info, new_prefs, room, self.email_sender, self.email_password)
+            messagebox.showinfo("SUCCESS", "Reservation modified!")
+            self.show_homepage()
+
+        tk.Button(frame, text="Save Changes", command=save_changes, width=30,
+                  height=2,bg="green",fg="white").pack(pady=15)
+        tk.Button(frame, text="Back", command=self.show_homepage, width=30,
+                  bg="gray").pack()
+        
+    # =========== CANCEL RESERVATION ===========
+    def show_cancel(self):
+        """Display Cancel Reservation Screen"""
+        self.clear_screen()
+        frame = tk.Frame(self.root)
+        frame.pack(fill="both", expand=True, padx=20,pady=20)
+        self.current_frame=frame
+
+        tk.Label(frame, text="Cancel Reservation", font=("Arial",18,"bold")).pack(pady=20)
+        tk.Label(frame, text="Confirmation Number:").pack()
+
+        conf_entry = tk.Entry(frame, width=30, font=("Arial",12))
+        conf_entry.pack(pady=10)
+
+        def search():
+            """Search for Booking"""
+            conf = conf_entry.get()
+            booking = find_booking(conf)
+            if not booking:
+                messagebox.showerror("ERROR", "Booking Not Found")
+                return
+            self.confirm_cancel(conf, booking)
+        
+        tk.Button(frame, text="Search", command=search, bg="blue",fg="white",width=30).pack(pady=10)
+        tk.Button(frame,text="Back", command=self.show_homepage, bg="gray", width=30).pack()
+
+    def confirm_cancel(self,conf_num, booking):
+        """Confirm Cancellation"""
+        self.clear_screen()
+        frame = tk.Frame(self.root, bg="lightyellow")
+        frame.pack(fill="both", expand=True, padx=20,pady=20)
+        self.current_frame=frame
+
+        tk.Label(frame, text="Confirm Cancellation",font=("Arial",16,"bold"),
+                 bg="lightyellow").pack(pady=10)
+        
+        info_frame = tk.LabelFrame(frame,text="Booking",padx=10,pady=10,bg="lightyellow")
+        info_frame.pack(fill="x", pady=10)
+
+        tk.Label(info_frame, text=f"Confirmation: {conf_num}\n"
+                 f"Guest: {booking['guest_name']}\n"
+                 f"Room: {booking['room_type']}\n"
+                 f"Check-in: {booking['check_in']}\n"
+                 f"Total: ${booking['total_price']}", bg="lightyellow").pack(anchor="w")
+
+        def cancel():
+            """Cancel Booking"""
+            cancel_reservation(conf_num, booking, self.email_sender, self.email_password)
+            messagebox.showinfo("SUCCESS", "Reservation Cancelled!")
+            self.show_homepage()
+
+        tk.Button(frame, text="Confirm Cancellation", command=cancel, bg="red",
+                  fg="white", width=30, height=2).pack(pady=20)
+        tk.Button(frame, text="Keep Reservation", command=self.show_homepage,
+                  bg="green", fg="white", width=30).pack()
+        
+    # =========== ADMIN REPORT ===========
+
     print("testing testing")
