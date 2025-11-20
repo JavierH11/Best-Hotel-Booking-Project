@@ -634,5 +634,136 @@ class HotelBookingApp:
                   bg="green", fg="white", width=30).pack()
         
     # =========== ADMIN REPORT ===========
+    def show_login(self):
+        """Display Admin Login Screen"""
+        self.clear_screen()
+        frame = tk.Frame(self.root)
+        frame.pack(fill="both", expand=True, padx=20, pady=20)
+        self.current_frame = frame
 
-    print("testing testing")
+        tk.Label(frame, text="Admin Login", font=("Arial",18,"bold")).pack(pady=20)
+        tk.Label(frame, text="Username:").pack(pady=5)
+        user_entry = tk.Entry(frame, width=30)
+        user_entry.pack()
+        tk.Label(frame, text="Password:").pack(pady=5)
+        pass_entry = tk.Entry(frame, width=30, show="*")
+        pass_entry.pack()
+
+        def login():
+            """Check Credentials."""
+            if user_entry.get() == self.admin_user and pass_entry.get() == self.admin_pass:
+                self.show_report_options()
+            else:
+                messagebox.showerror("ERROR", "Invalid Credentials")
+        
+        tk.Button(frame, text="Login", command=login, bg="blue",fg="white",width=30).pack(pady=20)
+        tk.Button(frame, text="Back", command=self.show_homepage,bg="gray",width=30).pack()
+
+    def show_report_options(self):
+        """Display Report Options"""
+        self.clear_screen()
+        frame = tk.Frame(self.root)
+        frame.pack(fill="both", expand=True, padx=20, pady=20)
+        self.current_frame = frame
+
+        tk.Label(frame, text="Report Options", font=("Arial", 18, "bold")).pack(pady=20)
+
+        report_type = tk.StringVar(value="all")
+
+        tk.Radiobutton(frame, text="All Bookings", variable=report_type,
+                       value="all").pack(anchor="w",padx=20,pady=5)
+        tk.Radiobutton(frame, text="Custom Date Range", variable=report_type,
+                       value="custom").pack(anchor="w",padx=20,pady=5)
+        
+        date_frame = tk.LabelFrame(frame, text="Dates", padx=10,pady=10)
+        date_frame.pack(fill="x", padx=20, pady=10)
+
+        tk.Label(date_frame, text="Start Date:").pack()
+        start_entry = tk.Entry(date_frame, width=20)
+        start_entry.pack()
+        start_entry.insert(0, (datetime.now() - timedelta(days=30)).strftime("%Y-%m-%d"))
+
+        tk.Label(date_frame, text="End Date:", pady=10).pack()
+        end_entry = tk.Entry(date_frame, width=20)
+        end_entry.pack()
+        end_entry.insert(0, datetime.now().strftime("%Y-%m-%d"))
+
+        def generate():
+            """Generate Report"""
+            bookings = load_bookings()
+            if report_type.get() == "custom":
+                start = validate_date(start_entry.get())
+                end = validate_date(end_entry.get())
+                if not start or not end:
+                    messagebox.showerror("ERROR", "Invalid Dates")
+                    return
+                bookings = [b for b in bookings
+                            if start <= validate_date(b['check_in']) <= end]
+
+            self.show_report(bookings)
+        tk.Button(frame, text="Generate", command= generate, bg="green",fg="white",
+                  width=30).pack(pady=20)
+        tk.Button(frame, text="Back", command=self.show_homepage,bg="gray",width=30).pack()
+
+    def show_report(self, bookings):
+        """Display and Save Report"""
+        self.clear_screen()
+        frame = tk.Frame(self.root)
+        frame.pack(fill="both",expand=True, padx=20, pady=20)
+        self.current_frame = frame
+
+        tk.Label(frame, text="Hotel Booking Report", font=("Arial", 18, "bold")).pack(pady=10)
+
+        # Calculate Statistics
+        total_revenue = sum(b.get('total_price', 0) for b in bookings
+                            if b.get('status') == 'CONFIRMED')
+        confirmed = sum(1 for b in bookings if b.get('status') == 'CONFIRMED')
+        cancelled = sum(1 for b in bookings if b.get('status') == 'CANCELLED')
+
+        # Create Report Text
+        report = f"""HOTEL BOOKING REPORT
+{'='*50}
+
+Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}
+
+SUMMARY:
+Total Bookings: {len(bookings)}
+Confirmed: {confirmed}
+Cancelled; {cancelled}
+Total Revenue: ${total_revenue:.2f}
+Average Value: ${total_revenue/confirmed if confirmed > 0 else 0:.2f}
+
+{'='*50}
+DETAILS:
+"""
+        for b in bookings: 
+            report += f"""   
+Confirmation: {b.get('confirmation_number')}
+Guest: {b.get('guest_name')}
+Email: {b.get('guest_email')}
+Room: {b.get('room_type')}
+Check-in: {b.get('check_in')}
+Check-out: {b.get('check_out')}
+Total: ${b.get('total_price')}
+Status: {b.get('status')}
+{'-'*50}"""
+            
+            # Display in Scrolled Text
+            text_area = scrolledtext.ScrolledText(frame, width=80,height=20,font=("Courier",9))
+            text_area.pack(pady=10, fill="both", expand=True)
+            text_area.insert(tk.END, report)
+            text_area.config(state=tk.DISABLED)
+
+            def save():
+                """Save Report to File"""
+                filename = f"report_{datetime.now().strftime('%y%m%d_%H%M%S')}.txt"
+                try:
+                    with open(filename, 'w') as f:
+                        f.write(report)
+                    messagebox.showinfo("SUCCESS", f"Saved: {filename}")
+                except:
+                    messagebox.showerror("ERROR", "Could Not Save Report")
+            
+            tk.Button(frame, text="Save Report", command=save, bg="greem", fg="white",
+                      width=30).pack(pady=10)
+            tk.Button(frame, text="Back", command=self.show_homepage, bg="gray",width=30).pack()
