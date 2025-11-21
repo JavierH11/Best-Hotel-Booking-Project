@@ -7,11 +7,10 @@ Functions:
     is_room_available: Check if room is available for dates
     get_available_rooms: Get list of available rooms matching criteria
 """
-
+#Files/methods from teammates that integrates with rest of software
 from utils import validate_date
 from storage import load_bookings
-
-
+#Method/func that checks for room availability
 def is_room_available(room_id, check_in, check_out):
     """
     Check if a specific room is available for the given date range.
@@ -36,32 +35,27 @@ def is_room_available(room_id, check_in, check_out):
         >>> print(available)
         False  # If already booked for 11-21 to 11-23
     """
-    #Load all existing bookings
+    #Variable that's gonna hold all the existing bookings
     bookings = load_bookings()
-    
-    #Parse through the requested dates
+    #Variables that will hold dates for user check-in/check-out
     check_in_date = validate_date(check_in)
     check_out_date = validate_date(check_out)
-    
-    #Check each booking for any intersection
+    #Check each booking for any intersection/conflict
     for booking in bookings:
         #Skip if different room or booking is cancelled
         if booking.get('room_id') != room_id or booking.get('status') == 'CANCELLED':
             continue
-        
-        #Parse the existing booking dates
+        #Variables that will hold the existing booking dates that get checked
         booking_check_in = validate_date(booking['check_in'])
         booking_check_out = validate_date(booking['check_out'])
         
-        #Check for a date overlap
-        #Room will 'Not' available if dates overlap
+        #Check for a date overlap and room will be 'Not' available if dates overlap
         if not (check_out_date <= booking_check_in or check_in_date >= booking_check_out):
-            return False  #Room is booked during this period
+            return False  #Room is booked during this period basically
     
     #If there were no issues, booking is confirmed
     return True
-
-
+#The method/func that will find those available rooms
 def get_available_rooms(rooms, check_in, check_out, num_guests, num_beds, amenities):
     """
     Get list of available rooms matching all of the filter criteria
@@ -96,28 +90,23 @@ def get_available_rooms(rooms, check_in, check_out, num_guests, num_beds, amenit
         2
     """
     available = []
-    
     for room in rooms:
-        #First filter will check the guest capacity
+        #1st filter will check the guest capacity
         if room.max_guests < num_guests:
             continue  # Room doesn't fit enough guests
-        
-        #Second filter will check the bed count
+        #2nd filter will check the bed count
         if room.num_beds < num_beds:
             continue  # Room doesn't have enough beds
-        
-        #Third filter will check for any amenities (if the customer requested any)
+        #3rd filter will check for any amenities (if the customer requested any)
         if amenities:  #Only check if amenities list is not empty
             #Room must have 'All' requested amenities
             has_all_amenities = all(a in room.amenities for a in amenities)
             if not has_all_amenities:
                 continue  #This means that a room is missing required amenity
-        
-        #Fourth Filter will check for date availability
+        #4th Filter will check for date availability
         if not is_room_available(room.room_id, check_in, check_out):
             continue  #This means that a room is already booked for these dates
-        
         #This means that a room passed through all the filters and is available for the user to select
         available.append(room)
-    
     return available
+
