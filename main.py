@@ -25,9 +25,8 @@ class Room:
         self.price = price
         self.amenities = amenities
 '''
-
-from utils
-
+#from utils
+'''
 # ============ UTILITY FUNCTIONS ============
 
 def validate_date(date_string):
@@ -76,7 +75,7 @@ def find_booking(conf_num):
 def generate_conf_number():
     """Generate random confirmation number"""
     return 'CONF-' + ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
-
+'''
 
 # ============ MAIN APPLICATION ============
 
