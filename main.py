@@ -6,11 +6,12 @@ import json
 import random
 import string
 import smtplib
+from app import HotelBookingApp
 from models import Room
 from createReservation_logic import create_reservation, modify_reservation, cancel_reservation
 from room_logic import is_room_available, get_available_rooms
 from utils import validate_date , generate_conf_number, load_bookings, save_booking, update_booking_status, find_booking
-from emai_service import send_email
+#from emai_service import send_email
 from storage import load_bookings, save_booking, update_booking_status, find_booking
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -81,7 +82,7 @@ def generate_conf_number():
     """Generate random confirmation number"""
     return 'CONF-' + ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
 '''
-
+'''
 # ============ MAIN APPLICATION ============
 
 class HotelBookingApp:
@@ -128,7 +129,8 @@ class HotelBookingApp:
             server.quit()
         except Exception as e:
             print(f"Email failed: {e}")
-    '''        
+    
+          
     def is_room_available(self, room_id, check_in, check_out):
         """Check if room is available for dates"""
         bookings = load_bookings()
@@ -166,6 +168,8 @@ class HotelBookingApp:
                 available.append(room)
         
         return available
+'''
+# from app
 '''
     # ============ SCREENS ============
 
@@ -417,7 +421,9 @@ class HotelBookingApp:
 
         tk.Button(frame, text="Return Home", font=("Arial", 13), width=30, 
                   bg="blue", fg="white", command=self.show_homepage).pack(pady=20)
-
+'''
+#from app
+'''
     # ============ MODIFY ============
 
     def show_modify(self):
@@ -750,7 +756,7 @@ Status: {b.get('status')}
                   fg="white", width=30).pack(pady=10)
         tk.Button(frame, text="Back", command=self.show_homepage, 
                   bg="gray", width=30).pack()
-
+'''
 # ============ RUN APP ============
 
 if __name__ == "__main__":
