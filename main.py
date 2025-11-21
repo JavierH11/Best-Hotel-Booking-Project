@@ -125,7 +125,7 @@ class HotelBookingApp:
             server.quit()
         except Exception as e:
             print(f"Email failed: {e}")
-
+    '''        
     def is_room_available(self, room_id, check_in, check_out):
         """Check if room is available for dates"""
         bookings = load_bookings()
@@ -163,7 +163,7 @@ class HotelBookingApp:
                 available.append(room)
         
         return available
-
+'''
     # ============ SCREENS ============
 
     def show_homepage(self):
