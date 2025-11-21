@@ -12,6 +12,8 @@ from room_logic import is_room_available, get_available_rooms
 from utils import validate_date , generate_conf_number, load_bookings, save_booking, update_booking_status, find_booking
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from emai_service import send_email
+from storage import load_bookings, save_booking, update_booking_status, find_booking
 
 #from models
 '''
