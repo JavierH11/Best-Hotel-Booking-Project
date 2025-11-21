@@ -107,6 +107,23 @@ class HotelBookingApp:
         #self.clear_screen()
         self.current_frame=frame
 
+    def search(self,conf_entry,method):
+            """
+            Checks if Reservation Exists
+            
+            Passes user to corresponding method
+            Example:
+                if cancelling
+                    ----> confirm_cancel
+                if modifying
+                    ----> modify_booking_screen
+            """
+            conf = conf_entry.get()
+            booking = find_booking(conf)
+            if not booking:
+                messagebox.showerror("ERROR", "Reservation Not Found")
+                return
+            method(conf, booking)
 
     def show_homepage(self):
         """
@@ -462,18 +479,10 @@ class HotelBookingApp:
 
         conf_entry = tk.Entry(self.current_frame, width=30, font=("Arial",12))
         conf_entry.pack(pady=10)
-
-        def search():
-            """Sees if Reservation Exists"""
-            conf = conf_entry.get()
-            booking = find_booking(conf)
-            if not booking:
-                messagebox.showerror("ERROR", "Reservation Not Found")
-                return
-            self.modify_booking_screen(conf, booking)
+        method=self.modify_booking_screen
 
         # Buttons
-        self.createButton(buttonText="Search",color="blue",toDo=search,space=10,size=12)
+        self.createButton(buttonText="Search",color="blue",toDo=lambda: self.search(conf_entry, method),space=10,size=12)
         self.createButton(buttonText="Back",color="gray",toDo=self.show_homepage,space=0,size=12)
 
     def modify_booking_screen(self, old_conf, old_booking):
@@ -589,41 +598,45 @@ class HotelBookingApp:
         
     # =========== CANCEL RESERVATION ===========
     def show_cancel(self):
-        """Display Cancel Reservation Screen"""
-        self.clear_screen()
-        frame = tk.Frame(self.root)
-        frame.pack(fill="both", expand=True, padx=20,pady=20)
-        self.current_frame=frame
+        """
+        Cancel Reservation Menu
 
-        tk.Label(frame, text="Cancel Reservation", font=("Arial",18,"bold")).pack(pady=20)
-        tk.Label(frame, text="Confirmation Number:").pack()
+        Here the user will be prompted to enter their confirmation
+        number to make sure the reservation exists
 
-        conf_entry = tk.Entry(frame, width=30, font=("Arial",12))
+        If it exists they will proceed to the next step in the cancellation process
+        """
+        self.updateScreen(bColor=None,xSize=20,ySize=20)
+
+        tk.Label(self.current_frame, text="Cancel Reservation", font=("Arial",18,"bold")).pack(pady=20)
+        tk.Label(self.current_frame, text="Confirmation Number:").pack()
+
+        conf_entry = tk.Entry(self.current_frame, width=30, font=("Arial",12))
         conf_entry.pack(pady=10)
+        method=self.confirm_cancel
 
-        def search():
-            """Search for Booking"""
-            conf = conf_entry.get()
-            booking = find_booking(conf)
-            if not booking:
-                messagebox.showerror("ERROR", "Booking Not Found")
-                return
-            self.confirm_cancel(conf, booking)
-        
-        tk.Button(frame, text="Search", command=search, bg="blue",fg="white",width=30).pack(pady=10)
-        tk.Button(frame,text="Back", command=self.show_homepage, bg="gray", width=30).pack()
+        # Buttons
+        self.createButton(buttonText="Search",color="blue",toDo=lambda: self.search(conf_entry,method),space=10,size=12)
+        self.createButton(buttonText="Back",color="gray",toDo=self.show_homepage,space=0,size=12)
 
     def confirm_cancel(self,conf_num, booking):
-        """Confirm Cancellation"""
-        self.clear_screen()
-        frame = tk.Frame(self.root, bg="lightyellow")
-        frame.pack(fill="both", expand=True, padx=20,pady=20)
-        self.current_frame=frame
+        """
+        Cancel Reservation Menu
 
-        tk.Label(frame, text="Confirm Cancellation",font=("Arial",16,"bold"),
+        Here the User will be prompted whether the want to confirm a cancellation
+        of the reservation or if they would rather keep the reservation
+
+        Example:
+            >>> button1: "Confirm Cancellation"
+            >>> button2: "Keep Reservation
+        """
+        # Update screen with new menu display
+        self.updateScreen(bColor="lightyellow",xSize=20,ySize=20)
+
+        tk.Label(self.current_frame, text="Confirm Cancellation",font=("Arial",16,"bold"),
                  bg="lightyellow").pack(pady=10)
         
-        info_frame = tk.LabelFrame(frame,text="Booking",padx=10,pady=10,bg="lightyellow")
+        info_frame = tk.LabelFrame(self.current_frame,text="Reservation",padx=10,pady=10,bg="lightyellow")
         info_frame.pack(fill="x", pady=10)
 
         tk.Label(info_frame, text=f"Confirmation: {conf_num}\n"
@@ -633,59 +646,65 @@ class HotelBookingApp:
                  f"Total: ${booking['total_price']}", bg="lightyellow").pack(anchor="w")
 
         def cancel():
-            """Cancel Booking"""
+            """Cancel Reservation: cancels the users reservation"""
             cancel_reservation(conf_num, booking, self.email_sender, self.email_password)
             messagebox.showinfo("SUCCESS", "Reservation Cancelled!")
             self.show_homepage()
 
-        tk.Button(frame, text="Confirm Cancellation", command=cancel, bg="red",
-                  fg="white", width=30, height=2).pack(pady=20)
-        tk.Button(frame, text="Keep Reservation", command=self.show_homepage,
-                  bg="green", fg="white", width=30).pack()
+        # Buttons
+        self.createButton(buttonText="Confirm Cancellation",color="red",toDo=cancel,space=20,size=12)
+        self.createButton(buttonText="Keep Reservation",color="green",toDo=self.show_homepage,space=0,size=12)
         
     # =========== ADMIN REPORT ===========
     def show_login(self):
-        """Display Admin Login Screen"""
-        self.clear_screen()
-        frame = tk.Frame(self.root)
-        frame.pack(fill="both", expand=True, padx=20, pady=20)
-        self.current_frame = frame
+        """
+        Show Admin Login Screen
+        
+        Will verify if user is an Admin, if so they will proceed 
+        to be able to view hotel report
+        """
+        # Update screen with new menu display
+        self.updateScreen(bColor=None,xSize=20,ySize=20)
 
-        tk.Label(frame, text="Admin Login", font=("Arial",18,"bold")).pack(pady=20)
-        tk.Label(frame, text="Username:").pack(pady=5)
-        user_entry = tk.Entry(frame, width=30)
+        tk.Label(self.current_frame, text="Admin Login", font=("Arial",18,"bold")).pack(pady=20)
+        tk.Label(self.current_frame, text="Username:").pack(pady=5)
+        user_entry = tk.Entry(self.current_frame, width=30)
         user_entry.pack()
-        tk.Label(frame, text="Password:").pack(pady=5)
-        pass_entry = tk.Entry(frame, width=30, show="*")
+        tk.Label(self.current_frame, text="Password:").pack(pady=5)
+        pass_entry = tk.Entry(self.current_frame, width=30, show="*")
         pass_entry.pack()
 
         def login():
-            """Check Credentials."""
+            """Verifies Employee Login: sees if user is an employee"""
             if user_entry.get() == self.admin_user and pass_entry.get() == self.admin_pass:
                 self.show_report_options()
             else:
                 messagebox.showerror("ERROR", "Invalid Credentials")
         
-        tk.Button(frame, text="Login", command=login, bg="blue",fg="white",width=30).pack(pady=20)
-        tk.Button(frame, text="Back", command=self.show_homepage,bg="gray",width=30).pack()
+        # Buttons
+        self.createButton(buttonText="Login",color="blue",toDo=login,space=20,size=12)
+        self.createButton(buttonText="Back",color="gray",toDo=self.show_homepage,space=0,size=12)
 
     def show_report_options(self):
-        """Display Report Options"""
-        self.clear_screen()
-        frame = tk.Frame(self.root)
-        frame.pack(fill="both", expand=True, padx=20, pady=20)
-        self.current_frame = frame
+        """
+        Displays Hotel Report Options to Admin
 
-        tk.Label(frame, text="Report Options", font=("Arial", 18, "bold")).pack(pady=20)
+        Allows admin to generate a report of all reservations or generate
+        a report for reservations of a certain date range
+        """
+        # Update screen with new menu display
+        self.updateScreen(bColor=None,xSize=20,ySize=20)
+
+        tk.Label(self.current_frame, text="Report Options", font=("Arial", 18, "bold")).pack(pady=20)
 
         report_type = tk.StringVar(value="all")
 
-        tk.Radiobutton(frame, text="All Bookings", variable=report_type,
+        tk.Radiobutton(self.current_frame, text="All Reservations", variable=report_type,
                        value="all").pack(anchor="w",padx=20,pady=5)
-        tk.Radiobutton(frame, text="Custom Date Range", variable=report_type,
+        tk.Radiobutton(self.current_frame, text="Custom Date Range", variable=report_type,
                        value="custom").pack(anchor="w",padx=20,pady=5)
         
-        date_frame = tk.LabelFrame(frame, text="Dates", padx=10,pady=10)
+        date_frame = tk.LabelFrame(self.current_frame, text="Dates", padx=10,pady=10)
         date_frame.pack(fill="x", padx=20, pady=10)
 
         tk.Label(date_frame, text="Start Date:").pack()
@@ -699,7 +718,11 @@ class HotelBookingApp:
         end_entry.insert(0, datetime.now().strftime("%Y-%m-%d"))
 
         def generate():
-            """Generate Report"""
+            """
+            Creates a hotel report for admin
+            
+            If admin selects custom verifies dates are appropiate values
+            """
             bookings = load_bookings()
             if report_type.get() == "custom":
                 start = validate_date(start_entry.get())
@@ -711,18 +734,20 @@ class HotelBookingApp:
                             if start <= validate_date(b['check_in']) <= end]
 
             self.show_report(bookings)
-        tk.Button(frame, text="Generate", command= generate, bg="green",fg="white",
-                  width=30).pack(pady=20)
-        tk.Button(frame, text="Back", command=self.show_homepage,bg="gray",width=30).pack()
+
+        # Buttons
+        self.createButton(buttonText="Generate",color="green",toDo=generate,space=20,size=12)
+        self.createButton(buttonText="Back",color="gray",toDo=self.show_homepage,space=0,size=12)
 
     def show_report(self, bookings):
-        """Display and Save Report"""
-        self.clear_screen()
-        frame = tk.Frame(self.root)
-        frame.pack(fill="both",expand=True, padx=20, pady=20)
-        self.current_frame = frame
+        """
+        Displays Hotel Report for admin: allows admin to save report or
+        go back to homepage(main menu)
+        """
+        # Update screen with new menu display
+        self.updateScreen(bColor=None,xSize=20,ySize=20)
 
-        tk.Label(frame, text="Hotel Booking Report", font=("Arial", 18, "bold")).pack(pady=10)
+        tk.Label(self.current_frame, text="Hotel Reservation Report", font=("Arial", 18, "bold")).pack(pady=10)
 
         # Calculate Statistics
         total_revenue = sum(b.get('total_price', 0) for b in bookings
@@ -731,15 +756,15 @@ class HotelBookingApp:
         cancelled = sum(1 for b in bookings if b.get('status') == 'CANCELLED')
 
         # Create Report Text
-        report = f"""HOTEL BOOKING REPORT
+        report = f"""Hotel Reservation Report
 {'='*50}
 
 Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}
 
 SUMMARY:
-Total Bookings: {len(bookings)}
-Confirmed: {confirmed}
-Cancelled; {cancelled}
+Total Reservations: {len(bookings)}
+Confirmed Reservations: {confirmed}
+Cancelled Reservations: {cancelled}
 Total Revenue: ${total_revenue:.2f}
 Average Value: ${total_revenue/confirmed if confirmed > 0 else 0:.2f}
 
@@ -748,24 +773,24 @@ DETAILS:
 """
         for b in bookings: 
             report += f"""   
-Confirmation: {b.get('confirmation_number')}
+Confirmation #: {b.get('confirmation_number')}
 Guest: {b.get('guest_name')}
 Email: {b.get('guest_email')}
 Room: {b.get('room_type')}
-Check-in: {b.get('check_in')}
-Check-out: {b.get('check_out')}
+Check-In Date: {b.get('check_in')}
+Check-Out Date: {b.get('check_out')}
 Total: ${b.get('total_price')}
 Status: {b.get('status')}
 {'-'*50}"""
             
             # Display in Scrolled Text
-            text_area = scrolledtext.ScrolledText(frame, width=80,height=20,font=("Courier",9))
+            text_area = scrolledtext.ScrolledText(self.current_frame, width=80,height=20,font=("Courier",9))
             text_area.pack(pady=10, fill="both", expand=True)
             text_area.insert(tk.END, report)
             text_area.config(state=tk.DISABLED)
 
             def save():
-                """Save Report to File"""
+                """Saves Admin Generated Report"""
                 filename = f"report_{datetime.now().strftime('%y%m%d_%H%M%S')}.txt"
                 try:
                     with open(filename, 'w') as f:
@@ -774,6 +799,6 @@ Status: {b.get('status')}
                 except:
                     messagebox.showerror("ERROR", "Could Not Save Report")
             
-            tk.Button(frame, text="Save Report", command=save, bg="greem", fg="white",
-                      width=30).pack(pady=10)
-            tk.Button(frame, text="Back", command=self.show_homepage, bg="gray",width=30).pack()
+            # Buttons
+            self.createButton(buttonText="Save Report",color="green",toDo=save,space=10,size=12)
+            self.createButton(buttonText="Back",color="gray",toDo=self.show_homepage,space=0,size=12)
