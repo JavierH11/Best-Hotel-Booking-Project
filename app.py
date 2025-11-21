@@ -92,10 +92,10 @@ class HotelBookingApp:
 
         Clears the window to show new interactive menu
         """
-        self.clear_screen()
+        #self.clear_screen()
         frame = tk.Frame(self.root)
         frame.pack(fill="both", expand= True, padx=20,pady=20)
-        #self.clear_screen()
+        self.clear_screen()
         self.current_frame=frame
 
 
@@ -331,16 +331,14 @@ class HotelBookingApp:
         Args:
             booking_info (dict): Room and user selections from previous steps (steps 1 and 2)
         """
-        self.clear_screen()
-        frame = tk.Frame(self.root)
-        frame.pack(fill="both", expand=True, padx=20, pady=20)
-        self.current_frame = frame
+        # Update window with new menu display
+        self.updateScreen()
 
         # Title
-        tk.Label(frame, text="Step 3: Guest Details", font=("Arial", 16, "bold")).pack(pady=10)
+        tk.Label(self.current_frame, text="Step 3: Guest Details", font=("Arial", 16, "bold")).pack(pady=10)
 
         # Booking SUmmary
-        summary_frame = tk.LabelFrame(frame, text="Booking Summary", padx=10,pady=10, bg="lightblue")
+        summary_frame = tk.LabelFrame(self.current_frame, text="Reservation Summary", padx=10,pady=10, bg="lightblue")
         summary_frame.pack(fill="x", pady=10)
 
         room = booking_info["room"]
@@ -352,24 +350,24 @@ class HotelBookingApp:
         tk.Label(summary_frame, text=summary_text, bg="lightblue").pack(anchor="w")
 
         # Guest Information Form
-        tk.Label(frame, text="Name:", pady=10).pack()
-        name_entry = tk.Entry(frame,width=30)
+        tk.Label(self.current_frame, text="Name:", pady=10).pack()
+        name_entry = tk.Entry(self.current_frame,width=30)
         name_entry.pack()
 
-        tk.Label(frame, text="Email:", pady=10).pack()
-        email_entry = tk.Entry(frame,width=30)
+        tk.Label(self.current_frame, text="Email:", pady=10).pack()
+        email_entry = tk.Entry(self.current_frame,width=30)
         email_entry.pack()
 
-        tk.Label(frame, text="Phone:", pady=10).pack()
-        phone_entry = tk.Entry(frame,width=20)
+        tk.Label(self.current_frame, text="Phone:", pady=10).pack()
+        phone_entry = tk.Entry(self.current_frame,width=20)
         phone_entry.pack()
 
-        tk.Label(frame, text="Card Number:", pady=10).pack()
-        card_entry = tk.Entry(frame,width=20)
+        tk.Label(self.current_frame, text="Card Number:", pady=10).pack()
+        card_entry = tk.Entry(self.current_frame,width=20)
         card_entry.pack()
 
         def confirm():
-            """Confirm Booking and Send Email"""
+            """Confirm Reservation and Send User Confirmation Email"""
             # Validate All Fields Filled
             name = name_entry.get()
             email = email_entry.get()
@@ -394,10 +392,8 @@ class HotelBookingApp:
             self.show_confirmation(booking, room, prefs)
 
         # Buttons
-        tk.Button(frame, text="Confirm Booking", command=confirm, width=30,
-                  height=2, bg="green", fg="white", font=("Arial", 12)).pack(pady=15)
-        tk.Button(frame, text="Back", command=lambda: self.booking_step2([room], prefs), width=30,
-                  bg="gray", font=("Arial", 11)).pack()
+        self.createButton(buttonText="Confirm Reservation",color="green",toDo=confirm,space=15,size=12)
+        self.createButton(buttonText="Back",color="gray",toDo=lambda: self.booking_step2([room], prefs),space=0,size=11)
         
     def show_confirmation(self, booking, room, prefs):
         """
