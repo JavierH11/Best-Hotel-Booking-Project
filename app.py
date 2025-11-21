@@ -1,11 +1,11 @@
 """
-Hotel Booking System - User Interface
+Hotel Booking Software - UI Display and Management
 
-This module contains the main HotelBookingApp class which handles all user interface 
-screens and user interactions
+This module consists of the main HotelBookingApp class which contains additional methods to
+help handle the change of screens the user interacts with
 
-Classes:
-    HotelBookingApp: Main application controller
+Class:
+    HotelBookingApp: Main software/project controller
 """
 import tkinter as tk
 from tkinter import ttk, messagebox, scrolledtext
@@ -21,10 +21,12 @@ from email_service import send_email
 
 class HotelBookingApp:
     """
-    Main Hotel Booking Application
+    Main Hotel Booking Software/Project
 
-    This is the central controller that manages all user interface screens, user interactions,
-    and coordinates between business logic and UI
+    This is the main controller that handles GUI, user interactions, and verifies selections,ID's, and reservations
+    with the help of other classes such as business logic
+
+    This is the class that main.py calls to run the program
 
     Attributes:
         root (tk.Tk): Main tkinter window
@@ -35,7 +37,7 @@ class HotelBookingApp:
         email_password (str): Email password fro SMTP
         current_frame (tk.frame): Currently displayed frame
 
-    Example:
+    How Main.py calls this class to run program:
         >>> root = tk.Tk()
         >>> app = HotelBookingApp(root)
         >>> root.mainloop()
@@ -43,15 +45,15 @@ class HotelBookingApp:
 
     def __init__(self, root):
         """
-        Initialize the Hotel Booking Application
+        Initialize the Program
 
-        Sets up the main window, initializes room data, and displays the homepage
+        Sets up the main window (start screen) which first displays the homescreen and initializes room info
 
         Args: 
             root (tk.Tk): The main tkinter window
         """
         self.root = root
-        self.root.title("Hotel Booking System")
+        self.root.title("Hotel Reservation System")
         self.root.geometry("900x800")
 
         # Initialize room data - 3 room types available
@@ -75,115 +77,116 @@ class HotelBookingApp:
         # Show homepage
         self.show_homepage()
 
+    def createButton(self,buttonText,color,toDo,space,size):
+        tk.Button(self.current_frame, text=buttonText, 
+                font=("Arial", size), bg=color, fg="white",
+                command=toDo, width=30, height=2).pack(pady=space)
+
     def clear_screen(self):
-        """
-        Clear the current frame and prepare for new content.
-        
-        This method destroys the current frame to make room for the next screen.
-        This is called at the beginning of every screen method.
-        """
         if self.current_frame:
             self.current_frame.destroy()
 
+    def updateScreen(self):
+        """
+        Updates the window screen to display the new function/menu
+
+        Clears the window to show new interactive menu
+        """
+        self.clear_screen()
+        frame = tk.Frame(self.root)
+        frame.pack(fill="both", expand= True, padx=20,pady=20)
+        #self.clear_screen()
+        self.current_frame=frame
+
+
     def show_homepage(self):
         """
-        Display the main homepage with navigation buttons.
+        Display the homepage with buttons for all 4 functions.
         
-        Shows four main options:
-        - Create New Reservation (Green)
-        - Modify Reservation (Orange)
-        - Cancel Reservation (Red)
-        - Generate Admin Report (Purple)
+        Contains buttons for the following functions:
+            - Create New Reservation (Green)
+            - Modify Reservation (Orange)
+            - Cancel Reservation (Red)
+            - Generate Admin Report (Purple)
         
-        This is the first screen users see.
+        The first screen users will see when launching program.
         """
         self.clear_screen()
         
         # Create main frame with light blue background
+        # Doesn't use updateScreen since pady,padx are different and sets a bg color
         frame = tk.Frame(self.root, bg="lightblue")
         frame.pack(fill="both", expand=True)
         self.current_frame = frame
 
         # Title
-        tk.Label(frame, text="🏨 Hotel Booking System", 
+        tk.Label(frame, text="Hotel Reservation System", 
                 font=("Arial", 24, "bold"), bg="lightblue").pack(pady=30)
         tk.Label(frame, text="Welcome to Hotel Management", 
                 font=("Arial", 12), bg="lightblue").pack(pady=10)
 
         # Create Reservation Button
-        tk.Button(frame, text="✨ Create Reservation", 
-                 font=("Arial", 12), bg="green", fg="white",
-                 command=self.booking_step1, width=30, height=2).pack(pady=10)
-        
+        self.createButton(buttonText="Create Reservation",color="green",toDo=self.booking_step1,space=10,size=12)
         # Modify Reservation Button
-        tk.Button(frame, text="📝 Modify Reservation", 
-                 font=("Arial", 12), bg="orange", fg="white",
-                 command=self.show_modify, width=30, height=2).pack(pady=10)
-        
+        self.createButton(buttonText="Modify Reservation",color="orange",toDo=self.show_modify,space=10,size=12)
         # Cancel Reservation Button
-        tk.Button(frame, text="❌ Cancel Reservation", 
-                 font=("Arial", 12), bg="red", fg="white",
-                 command=self.show_cancel, width=30, height=2).pack(pady=10)
-        
+        self.createButton(buttonText="Cancel Reservation",color="red",toDo=self.show_cancel,space=10,size=12)
         # Admin Report Button
-        tk.Button(frame, text="📊 Admin Report", 
-                 font=("Arial", 12), bg="purple", fg="white",
-                 command=self.show_login, width=30, height=2).pack(pady=10)
+        self.createButton(buttonText="Admin Report",color="purple",toDo=self.show_login,space=10,size=12)
         
     # =========== BOOKING FLOW (3 STEPS) ===========
     def booking_step1(self):
         """
-        Display booking step 1: Guest preferences.
+        Displays first step for creating a reservation.
 
-        Allows user to enter:
+        Allows user to enter/interact with:
             - Check-in date
             - Check-out date
             - Number of guests
             - Number of beds
             - Preferred amenities
         
-        User clicks "Search Rooms" to proceed to step 2
+        User clicks "Search Rooms" to validate selections and to continue
+        the reservation process
         """
-        self.clear_screen()
-        frame = tk.Frame(self.root)
-        frame.pack(fill="both", expand= True, padx=20,pady=20)
-        self.current_frame=frame
+        # Update screen with new menu display
+        self.updateScreen()
 
         # Title
-        tk.Label(frame, text="Step 1: Your Preferences", font=("Arial",16,"bold")).pack(pady=10)
+        tk.Label(self.current_frame, text="Step 1: Your Preferences", font=("Arial",16,"bold")).pack(pady=10)
 
         # Check-In Date Input
-        tk.Label(frame,teext="Check-In (YYYY-MM-DD):").pack()
-        check_in_entry = tk.Entry(frame,width=20)
+        tk.Label(self.current_frame,text="Check-In (YYYY-MM-DD):").pack()
+        check_in_entry = tk.Entry(self.current_frame,width=20)
         check_in_entry.pack()
-        check_in_entry.insert(0, (datetime.now() + timedelta(day=2)).strftime("%Y-%m-%d"))
+        check_in_entry.insert(0, (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d"))
 
         # Check-Out Date Input
-        tk.Label(frame, text="Check-Out (YYYY-MM-DD):",pady=10).pack()
-        check_out_entry = tk.Entry(frame,width=20)
+        tk.Label(self.current_frame, text="Check-Out (YYYY-MM-DD):",pady=10).pack()
+        check_out_entry = tk.Entry(self.current_frame,width=20)
         check_out_entry.pack()
-        check_out_entry.insert(0, (datetime.now() + timedelta(day=2)).strftime("%Y-%m-%d"))
+        check_out_entry.insert(0, (datetime.now() + timedelta(days=2)).strftime("%Y-%m-%d"))
 
         # Number of guests dropdown menu
-        tk.Label(frame, text="Guests:",pady=10).pack()
+        tk.Label(self.current_frame, text="Guests:",pady=10).pack()
         guests_var = tk.StringVar(value="1")
-        ttk.Combobox(frame, textvariable=guests_var, values=["1","2","3","4"],width=10,state="readonly").pack()
+        ttk.Combobox(self.current_frame, textvariable=guests_var, values=["1","2","3","4"],width=10,state="readonly").pack()
 
         # Number of beds dropdown menu
-        tk.Label(frame, text="Beds:",pady=10).pack()
+        tk.Label(self.current_frame, text="Beds:",pady=10).pack()
         beds_var = tk.StringVar(value="1")
-        ttk.Combobox(frame, textvariable=guests_var, values=["1","2","3"],width=10,state="readonly").pack()
+        ttk.Combobox(self.current_frame, textvariable=beds_var, values=["1","2","3"],width=10,state="readonly").pack()
 
         # Amenities checkbox selection
-        tk.Label(frame, text="Amenities:",pady=10).pack()
+        tk.Label(self.current_frame, text="Amenities:",pady=10).pack()
         amenity_check={}
         for amenity in ["Wifi","AC", "Bathtub", "Mini Bar"]:
             var = tk.BooleanVar()
-            tk.Checkbutton(frame,text=amenity, variable=var).pack(anchor="w",padx=20)
+            tk.Checkbutton(self.current_frame,text=amenity, variable=var).pack(anchor="w",padx=20)
             amenity_check[amenity] = var
 
         def search():
-            "Handle Search Button - validate and proceed to step 2"
+            "Search Button - validate user selections then if valid go on to step 2"
             # Get User Input
             check_in = check_in_entry.get()
             check_out = check_out_entry.get()
@@ -210,7 +213,7 @@ class HotelBookingApp:
             # Check if any rooms available
             if not available:
                 messagebox.showerror(
-                    "No Availability",
+                    "None Available",
                     "No rooms match your criteria.\nTry different dates or preferences."
                     )
                 return
@@ -224,44 +227,41 @@ class HotelBookingApp:
             self.booking_step2(available, prefs)
 
         # Buttons
-        tk.Button(frame, text="Search Rooms", command=search, width=30,
-                  height=2, bg="blue", fg="white", font=("Arial", 12)).pack(pady=15)
-        tk.Button(frame, text="Back", command=self.show_homepage, width=30,
-                  bg="gray", font=("Arial", 11)).pack()
+        self.createButton(buttonText="Search Rooms",color="blue",toDo=search,space=15,size=12)
+        self.createButton(buttonText="Back",color="gray",toDo=self.show_homepage,space=0,size=11)
         
     def booking_step2(self, available_rooms, prefs):
         """
-        Display Booking Step 2: Room Selection
+        Displays second step for creating a room selection: Room Selection
 
-        Show list of available rooms with details:
+        Show all rooms available that match users criteria/selections:
             - Room Type
             - Number of Beds
             - Amenities
             - Nightly Rate
             - Total Price for Duration
         
-        User selects room and clicks "Continue" to proceed to step 3
+        User then selects desired room and clicks "Continue" to go to final step of creating reservation
 
         Args:
             available_rooms (list): List of Available Room Objects
             prefs (dict): Preferences from step 1
         """   
-        self.clear_screen()
-        frame = tk.Frame(self.root).pack(fill="both", expand=True,padx=20,pady=20)
-        self.current_frame = frame
+        # Update screen with new menu display
+        self.updateScreen()
 
         # Title
-        tk.Label(frame, text="Step 2: Select Room", font=("Arial", 16, "bold")).pack(pady=10)
+        tk.Label(self.current_frame, text="Step 2: Select Room", font=("Arial", 16, "bold")).pack(pady=10)
 
-        # Show Dates Summary
+        # Show Dates Selected
         summary_text = f"{prefs['check_in']} to {prefs['check_out']} ({prefs['nights']} nights)"
-        tk.Label(frame, text=summary_text, bg="lightyellow",padx=10,pady=5).pack(fill="x",pady=10)
+        tk.Label(self.current_frame, text=summary_text, bg="lightyellow",padx=10,pady=5).pack(fill="x",pady=10)
 
         # Room Selection Variable
         room_var = tk.StringVar()
 
-        # Create Scrollable Frame for Rooms
-        room_frame = tk.Frame(frame, bg="lightgray", relief="sunken", bd=1)
+        # Create Scrollable Window to view rooms available
+        room_frame = tk.Frame(self.current_frame, bg="lightgray", relief="sunken", bd=1)
         room_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
         canvas = tk.Canvas(room_frame, bg="lightgray")
@@ -274,7 +274,7 @@ class HotelBookingApp:
         canvas.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right",fill="y")
 
-        # Display Each Available Room
+        # Display All Available Rooms
         for room in available_rooms:
             # Calculate Total Price
             total = prefs['nights'] * room.price
@@ -296,7 +296,7 @@ class HotelBookingApp:
                      fg="darkblue").pack(anchor="w", padx=30)
         
         def next_step():
-            """Proceed to step 3 if room selected"""
+            """Move onto step 3 if room was found and user selected a room"""
             if not room_var.get():
                 messagebox.showerror("ERROR", "Please select a room")
                 return
@@ -313,25 +313,23 @@ class HotelBookingApp:
             self.booking_step3(booking_info)
 
         # Buttons
-        tk.Button(frame, text="Continue", command=next_step, width=30,
-                  height=2, bg="green", fg="white", font=("Arial", 12)).pack(pady=10)
-        tk.Button(frame, text="Back", command=lambda: self.booking_step1(), width=30,
-                  bg="gray", font=("Arial", 11)).pack()
+        self.createButton(buttonText="Continue",color="green",toDo=next_step,space=10,size=12)
+        self.createButton(buttonText="Back",color="gray",toDo=lambda: self.booking_step1(),space=0,size=11)
 
     def booking_step3(self, booking_info):
         """
-        Display Booking Step 3: Guest Details and Confirmation
+        Display Final Step (step 3): Guest(User) Info and Confirmation
 
-        Ask User to Enter:
+        Ask User to Enter Personal Info:
             - Full Name
             - Email Address
             - Phone Number
             - Credit Card Number
 
-        Shows booking summary and allows user to confirm
+        Last displays reservation summary and lets user confirm reservation
 
         Args:
-            booking_info (dict): Room and preferences from steps 1 and 2
+            booking_info (dict): Room and user selections from previous steps (steps 1 and 2)
         """
         self.clear_screen()
         frame = tk.Frame(self.root)
