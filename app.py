@@ -501,10 +501,6 @@ class HotelBookingApp:
         """
         # Update screen with new menu display
         self.updateScreen(bColor=None,xSize=20,ySize=20)
-        #self.clear_screen()
-        #frame = tk.Frame(self.root)
-        #frame.pack(fill="both", expand=True, padx=20, pady=20)
-        #self.current_frame = frame
 
         tk.Label(self.current_frame, text="Modify Reservation", font=("Arial", 16, "bold")).pack(pady=10)
 
@@ -584,7 +580,7 @@ class HotelBookingApp:
             }
             new_prefs={
                 'check_in': check_in,
-                'check-out': check_out,
+                'check_out': check_out,
                 'nights': nights
             }
 
@@ -783,22 +779,22 @@ Total: ${b.get('total_price')}
 Status: {b.get('status')}
 {'-'*50}"""
             
-            # Display in Scrolled Text
-            text_area = scrolledtext.ScrolledText(self.current_frame, width=80,height=20,font=("Courier",9))
-            text_area.pack(pady=10, fill="both", expand=True)
-            text_area.insert(tk.END, report)
-            text_area.config(state=tk.DISABLED)
+        # Display in Scrolled Text
+        text_area = scrolledtext.ScrolledText(self.current_frame, width=80,height=20,font=("Courier",9))
+        text_area.pack(pady=10, fill="both", expand=True)
+        text_area.insert(tk.END, report)
+        text_area.config(state=tk.DISABLED)
 
-            def save():
-                """Saves Admin Generated Report"""
-                filename = f"report_{datetime.now().strftime('%y%m%d_%H%M%S')}.txt"
-                try:
-                    with open(filename, 'w') as f:
-                        f.write(report)
-                    messagebox.showinfo("SUCCESS", f"Saved: {filename}")
-                except:
-                    messagebox.showerror("ERROR", "Could Not Save Report")
+        def save():
+            """Saves Admin Generated Report"""
+            filename = f"report_{datetime.now().strftime('%y%m%d_%H%M%S')}.txt"
+            try:
+                with open(filename, 'w') as f:
+                    f.write(report)
+                messagebox.showinfo("SUCCESS", f"Saved: {filename}")
+            except:
+                messagebox.showerror("ERROR", "Could Not Save Report")
             
-            # Buttons
-            self.createButton(buttonText="Save Report",color="green",toDo=save,space=10,size=12)
-            self.createButton(buttonText="Back",color="gray",toDo=self.show_homepage,space=0,size=12)
+        # Buttons
+        self.createButton(buttonText="Save Report",color="green",toDo=save,space=10,size=12)
+        self.createButton(buttonText="Back",color="gray",toDo=self.show_homepage,space=0,size=12)
