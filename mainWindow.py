@@ -1,13 +1,13 @@
 """
-Hotel Booking System - Main Entry Point
+Hotel Reservation Software - Main Loop
 
-This module serves as the entry point for the application. 
-Run this file to start the Hotel Booking System.
+This is the main file for the program. 
+User must launch this file to use Hotel Reservation Software.
 
-Usage:
+In terminal enter:
     python main.py
 
-The main.py file initializes the tkinter window and starts the application event loop
+This file initializes the main loop for the program
 """
 
 import tkinter as tk
@@ -15,10 +15,8 @@ from app import HotelBookingApp
 
 def main():
     """
-    Initialize and run the Hotel Booking Application
-
-    Creates the main tkinter window and starts the application event loop.
-    The evemt loop runs until the user closes the application window.
+    Starts the program from here by calling mainloop().
+    The main loops keeps going until user closes the program/window.
 
     Returns:
         None
