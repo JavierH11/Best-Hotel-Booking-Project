@@ -23,13 +23,6 @@ class Room:
         num_beds (int): Number of beds in the room
         price (float): Nightly rate in dollars
         amenities (list): List of available amenities (WiFi, AC, Bathtub, etc.)
-    
-    Example:
-        >>> room = Room("R001", "Single", 1, 1, 100.0, ["WiFi", "AC"])
-        >>> print(room.room_type)
-        Single
-        >>> print(room.price)
-        100.0
     """
     
     def __init__(self, room_id, room_type, max_guests, num_beds, price, amenities):
