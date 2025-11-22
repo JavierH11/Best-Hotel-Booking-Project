@@ -20,12 +20,12 @@ class Room:
     its type, capacity, number of beds, pricing, and available amenities.
     
     Attributes:
-        room_id (str): Unique identifier for the room (e.g., "R001")
-        room_type (str): Type of room (Single, Double, Suite)
         max_guests (int): Maximum number of guests allowed in room
         num_beds (int): Number of beds in the room
         price (float): Nightly rate in dollars
-        amenities (list): List of available amenities (WiFi, AC, Bathtub, etc.)
+        amenities (list): List of available amenities (WiFi, AC, Bathtub, etc.)    
+        room_id (str): Unique identifier for the room (e.g., "R001")
+        room_type (str): Type of room (Single, Double, Suite)
     """
     
     def __init__(self, room_id, room_type, max_guests, num_beds, price, amenities):
