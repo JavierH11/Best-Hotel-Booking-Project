@@ -2,8 +2,7 @@
 """
 Hotel Booking System - Data Models
 
-This module defines the Room and Booking data structures used throughout
-the hotel booking application.
+This module defines the Room and Booking data structures used throughout the hotel booking application.
 
 Classes:
     Room: Represents a hotel room with amenities and pricing.
@@ -16,8 +15,7 @@ class Room:
 
     Represents a hotel room.
     
-    A Room contains all necessary information about a hotel room including
-    its type, capacity, number of beds, pricing, and available amenities.
+    A Room contains all necessary information about a hotel room including its type, capacity, number of beds, pricing, and available amenities.
     
     Attributes:
         max_guests (int): Maximum number of guests allowed in room
