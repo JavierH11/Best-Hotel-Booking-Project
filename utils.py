@@ -76,6 +76,17 @@ def load_bookings():
             return []
     return []
 
+def update_booking_status(conf_num, new_status):
+    #Javier Herrera 11/21/2025
+    """Update booking status in JSON file"""
+    bookings = load_bookings()
+    for booking in bookings:
+        if booking.get('confirmation_number') == conf_num:
+            booking['status'] = new_status
+    with open("bookings/bookings.json", "w") as f:
+        json.dump(bookings, f, indent=2)
+
+
 def save_booking(booking_dict):
     #Sergio Ruelas 11/21/2025
     """Save a new booking to JSON file"""
@@ -86,15 +97,6 @@ def save_booking(booking_dict):
         json.dump(bookings, f, indent=2)
 
 
-def update_booking_status(conf_num, new_status):
-    #Javier Herrera 11/21/2025
-    """Update booking status in JSON file"""
-    bookings = load_bookings()
-    for booking in bookings:
-        if booking.get('confirmation_number') == conf_num:
-            booking['status'] = new_status
-    with open("bookings/bookings.json", "w") as f:
-        json.dump(bookings, f, indent=2)
 
 
 def find_booking(conf_num):
