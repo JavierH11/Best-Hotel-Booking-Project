@@ -6,6 +6,7 @@ This module handles sending email notifications to guests for:
 - Booking modifications
 - Booking cancellations
 
+#We will see if there is a way to use a different service with a dummy email account.
 Requires Gmail account with app-specific password (not regular password).
 
 Functions:
