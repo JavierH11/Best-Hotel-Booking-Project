@@ -50,8 +50,10 @@ def update_booking_status(conf_num, new_status):
     with open("bookings/bookings.json", "w") as f:
         json.dump(bookings, f, indent=2)
 
-        def validate_date(date_string):
-    #Sergio Ruelas 11/21/2025
+def validate_date(date_string):
+    
+    # Sergio Ruelas 11/21/2025
+    
     """
     Validate if a string is a valid date in YYYY-MM-DD format.
     
@@ -64,6 +66,7 @@ def update_booking_status(conf_num, new_status):
     Returns:
         datetime: Parsed datetime object if valid, None otherwise
     """
+
     try:
         return datetime.strptime(date_string, "%Y-%m-%d")
     except:
