@@ -99,7 +99,9 @@ class BestHotelBookingGroup:
     def __init__(self, root):
         self.root = root
         self.root.title("Best Hotel Booking Group")
-        self.root.geometry("900x800")
+        screen_height = root.winfo_screenheight()
+        screen_width = root.winfo_screenwidth()
+        root.geometry(f"{screen_width}x{screen_height}+0+0")
         
         # Room data
         self.rooms = [
