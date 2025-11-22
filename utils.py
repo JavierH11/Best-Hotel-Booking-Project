@@ -56,7 +56,7 @@ def generate_conf_number():
 
 
 def load_bookings():
-    #Sergio Ruelas 11/21/2025
+    #Javier Herrera 11/21/2025
     """
     Load all bookings from the JSON storage file.
     
@@ -87,7 +87,7 @@ def save_booking(booking_dict):
 
 
 def update_booking_status(conf_num, new_status):
-    #Sergio Ruelas 11/21/2025
+    #Javier Herrera 11/21/2025
     """Update booking status in JSON file"""
     bookings = load_bookings()
     for booking in bookings:
@@ -99,17 +99,13 @@ def update_booking_status(conf_num, new_status):
 
 def find_booking(conf_num):
     #Sergio Ruelas 11/21/2025  
-    """
-    Find a booking by confirmation number.
-    
-    Searches through all bookings and returns the booking with matching
-    confirmation number. Only returns non-cancelled bookings.
+    """Find a particular reservation by inputting a confirmation number
     
     Args:
-        conf_num (str): Confirmation number to search for
+        conf_num (str): The confirmation number
         
     Returns:
-        dict: Booking data if found, None otherwise
+        dict: Reservation with all the details particular to that confirmation number
     """
     bookings = load_bookings()
     for booking in bookings:
