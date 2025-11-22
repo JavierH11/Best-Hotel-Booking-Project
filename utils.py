@@ -20,9 +20,6 @@ import random
 import string
 from datetime import datetime
 
-
-
-
 def validate_date(date_string):
     #Sergio Ruelas 11/21/2025
     """
@@ -41,7 +38,6 @@ def validate_date(date_string):
         return datetime.strptime(date_string, "%Y-%m-%d")
     except:
         return None
-
 
 def generate_conf_number():
     #Sergio Ruelas 11/21/2025
@@ -86,7 +82,6 @@ def update_booking_status(conf_num, new_status):
     with open("bookings/bookings.json", "w") as f:
         json.dump(bookings, f, indent=2)
 
-
 def save_booking(booking_dict):
     #Sergio Ruelas 11/21/2025
     """Save a new booking to JSON file"""
@@ -95,9 +90,6 @@ def save_booking(booking_dict):
     bookings.append(booking_dict)
     with open("bookings/bookings.json", "w") as f:
         json.dump(bookings, f, indent=2)
-
-
-
 
 def find_booking(conf_num):
     #Sergio Ruelas 11/21/2025  
