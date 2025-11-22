@@ -17,7 +17,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 
-#from models
+#from models.py  got all the functions moved for file manipulation. It needs to be updated
 
 #Room Data.py is keeping class Room 
 '''
