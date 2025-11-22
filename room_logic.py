@@ -1,7 +1,8 @@
+from models import Room
 from utils import validate_date
 from storage import load_bookings
 #Function that checks for room availability   
-def is_room_available(self, room_id, check_in, check_out): #(WIP)
+def is_room_available(room_id, check_in, check_out): #(WIP)
     #David Guzman 11/21/2025
     """Check if the room is available for any specific date that the user chooses
 
@@ -35,7 +36,7 @@ def is_room_available(self, room_id, check_in, check_out): #(WIP)
     return True #No issues, reservation confirmed
 
 #Function to find those available rooms based on user choice
-def get_available_rooms(self, check_in, check_out, num_guests, num_beds, amenities):
+def get_available_rooms(rooms, check_in, check_out, num_guests, num_beds, amenities):
     #David Guzman 11/21/2025
     """Find available rooms based on user choice criteria such as number of guests, beds, date, and amenities
 
@@ -51,7 +52,7 @@ def get_available_rooms(self, check_in, check_out, num_guests, num_beds, ameniti
     """
     #Array to hold available rooms if it passes thru the filters
     available = []  
-    for room in self.rooms:
+    for room in rooms:
         #Filter for checking the guest capacity and bed capacity
         if room.max_guests < num_guests or room.num_beds < num_beds:
             continue
@@ -59,6 +60,6 @@ def get_available_rooms(self, check_in, check_out, num_guests, num_beds, ameniti
         if amenities and not any(a in room.amenities for a in amenities):
             continue
         #Filter for checking if the room is available by calling on the 'is_room_available' method
-        if self.is_room_available(room.room_id, check_in, check_out):
+        if is_room_available(room.room_id, check_in, check_out):
             available.append(room) #If we reach this point, it means the room passed through all filters and is available for user
     return available
