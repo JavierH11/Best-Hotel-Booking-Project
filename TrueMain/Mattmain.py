@@ -6,7 +6,7 @@ import json
 import random
 import string
 import smtplib
-#from app import HotelBookingApp
+#from app import BestHotelBookingGroup
 #from models import Room
 #from createReservation_logic import create_reservation, modify_reservation, cancel_reservation
 #from room_logic import is_room_available, get_available_rooms
@@ -19,7 +19,7 @@ from email.mime.multipart import MIMEMultipart
 
 #from models
 
-# ============ DATA CLASS ============
+#Room Data
 
 class Room:
     """Represents a hotel room"""
@@ -30,10 +30,10 @@ class Room:
         self.num_beds = num_beds
         self.price = price
         self.amenities = amenities
-'''
+
 #from utils
-'''
-# ============ UTILITY FUNCTIONS ============
+
+#Utility methods
 
 def validate_date(date_string):
     """Check if date is valid format (YYYY-MM-DD)"""
@@ -91,11 +91,11 @@ def generate_conf_number():
     Returns:
         str: Confirmation number for reservation to be displayed to user at the end
     """
-    return 'CONF-' + ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+    return '#' + ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
 
 # ============ MAIN APPLICATION ============
 
-class HotelBookingApp:
+class BestHotelBookingGroup:
     def __init__(self, root):
         self.root = root
         self.root.title("Best Hotel Booking Group")
@@ -262,8 +262,7 @@ class HotelBookingApp:
             amenity_checks[amenity] = var
 
         def search():
-            """_summary_
-            """
+            """Prepares a display GUI for room availability based on the user's selections"""
             check_in = check_in_entry.get()
             check_out = check_out_entry.get()
             
@@ -748,9 +747,9 @@ Status: {b.get('status')}
         tk.Button(frame, text="Back", command=self.show_homepage, 
                   bg="gray", width=30).pack()
 
-#RUN APP  (Pray it works!)
+#RUN APP  (Pray it works! JK it should work)
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = HotelBookingApp(root)
+    app = BestHotelBookingGroup(root)
     root.mainloop()
