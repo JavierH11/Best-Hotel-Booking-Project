@@ -20,7 +20,37 @@ import random
 import string
 from datetime import datetime
 
-def validate_date(date_string):
+def load_bookings():
+    #Javier Herrera 11/21/2025
+    """
+    Load all bookings from the JSON storage file.
+    
+    Reads bookings.json file and returns all stored bookings.
+    Returns empty list if file doesn't exist or on read error.
+    
+    Returns:
+        list: List of booking dictionaries, empty list if none found
+    """
+    json_file = "bookings/bookings.json"
+    if os.path.exists(json_file):
+        try:
+            with open(json_file, "r") as f:
+                return json.load(f)
+        except:
+            return []
+    return []
+
+def update_booking_status(conf_num, new_status):
+    #Javier Herrera 11/21/2025
+    """Update booking status in JSON file"""
+    bookings = load_bookings()
+    for booking in bookings:
+        if booking.get('confirmation_number') == conf_num:
+            booking['status'] = new_status
+    with open("bookings/bookings.json", "w") as f:
+        json.dump(bookings, f, indent=2)
+
+        def validate_date(date_string):
     #Sergio Ruelas 11/21/2025
     """
     Validate if a string is a valid date in YYYY-MM-DD format.
@@ -51,36 +81,6 @@ def generate_conf_number():
         str: Confirmation number in format "CONF-XXXXXXXX"
     """
     return '#' + ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
-
-def load_bookings():
-    #Javier Herrera 11/21/2025
-    """
-    Load all bookings from the JSON storage file.
-    
-    Reads bookings.json file and returns all stored bookings.
-    Returns empty list if file doesn't exist or on read error.
-    
-    Returns:
-        list: List of booking dictionaries, empty list if none found
-    """
-    json_file = "bookings/bookings.json"
-    if os.path.exists(json_file):
-        try:
-            with open(json_file, "r") as f:
-                return json.load(f)
-        except:
-            return []
-    return []
-
-def update_booking_status(conf_num, new_status):
-    #Javier Herrera 11/21/2025
-    """Update booking status in JSON file"""
-    bookings = load_bookings()
-    for booking in bookings:
-        if booking.get('confirmation_number') == conf_num:
-            booking['status'] = new_status
-    with open("bookings/bookings.json", "w") as f:
-        json.dump(bookings, f, indent=2)
 
 def save_booking(booking_dict):
     #Sergio Ruelas 11/21/2025

@@ -6,12 +6,12 @@ import json
 import random
 import string
 import smtplib
-#from app import BestHotelBookingGroup
-#from models import Room
+from app import BestHotelBookingGroup
+from models import Room
 #from createReservation_logic import create_reservation, modify_reservation, cancel_reservation
 #from room_logic import is_room_available, get_available_rooms
 #from utils import validate_date , generate_conf_number, load_bookings, save_booking, update_booking_status, find_booking
-#from email_service import send_email EMAIL IS A WIP, DOESNT REALLY WORK 
+#from email_service import send_email #EMAIL IS A WIP, DOESNT REALLY WORK 
 #from storage import load_bookings, save_booking, update_booking_status, find_booking
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -20,7 +20,7 @@ from email.mime.multipart import MIMEMultipart
 #from models
 
 #Room Data
-
+'''
 class Room:
     """Represents a hotel room"""
     def __init__(self, room_id, room_type, max_guests, num_beds, price, amenities):
@@ -120,6 +120,7 @@ def generate_conf_number():
 # ============ MAIN APPLICATION ============
 
 class BestHotelBookingGroup:
+
     def __init__(self, root):
         self.root = root
         self.root.title("Best Hotel Booking Group")
@@ -131,7 +132,7 @@ class BestHotelBookingGroup:
         self.rooms = [
             Room("R001", "Single", 1, 1, 100.0, ["WiFi", "AC"]),
             Room("R002", "Double", 2, 1, 150.0, ["WiFi", "AC", "Bathtub"]),
-            Room("R003", "Suite", 4, 2, 250.0, ["WiFi", "AC", "Bathtub", "Mini Bar"])
+            Room("R003", "Suite", 4, 2, 250.0, ["WiFi", "AC", "Bathtub", "Mini-Bar"])
         ]
         
         # Admin credentials
@@ -262,7 +263,7 @@ class BestHotelBookingGroup:
         frame = tk.Frame(self.root)
         frame.pack(fill="both", expand=True, padx=20, pady=20)
         self.current_frame = frame
-        tk.Label(frame, text="Step 1: Your Preferences", font=("Times New Roman", 16, "bold")).pack(pady=10)
+        tk.Label(frame, text="Select your preferences", font=("Times New Roman", 16, "bold")).pack(pady=10)
         tk.Label(frame, text="Check-in (YYYY-MM-DD):").pack()
         check_in_entry = tk.Entry(frame, width=20)
         check_in_entry.pack()
@@ -328,7 +329,7 @@ class BestHotelBookingGroup:
         frame = tk.Frame(self.root)
         frame.pack(fill="both", expand=True, padx=20, pady=20)
         self.current_frame = frame
-        tk.Label(frame, text="Step 2: Select Room", font=("Times New Roman", 16, "bold")).pack(pady=10)
+        tk.Label(frame, text="Select a Room!", font=("Times New Roman", 16, "bold")).pack(pady=10)
         tk.Label(frame, text=f"{prefs['check_in']} to {prefs['check_out']} "
                  f"({prefs['nights']} nights)", 
                  bg="lightyellow", padx=10, pady=5).pack(fill="x", pady=10)
@@ -381,7 +382,7 @@ class BestHotelBookingGroup:
         frame = tk.Frame(self.root)
         frame.pack(fill="both", expand=True, padx=20, pady=20)
         self.current_frame = frame
-        tk.Label(frame, text="Step 3: Guest Details", font=("Times New Roman", 16, "bold")).pack(pady=10)
+        tk.Label(frame, text="Please enter your information!", font=("Times New Roman", 16, "bold")).pack(pady=10)
         #Summary
         summary_frame = tk.LabelFrame(frame, text="Summary", padx=10, pady=10, bg="lightblue")
         summary_frame.pack(fill="x", pady=10)
@@ -774,7 +775,7 @@ Status: {b.get('status')}
                   bg="gray", width=30).pack()
 
 #RUN APP  (Pray it works! JK it should work)
-
+'''
 if __name__ == "__main__":
     root = tk.Tk()
     app = BestHotelBookingGroup(root)
