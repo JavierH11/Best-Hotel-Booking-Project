@@ -11,6 +11,9 @@ Classes:
 
 class Room:
     """
+    Programmer: Sergio Ruelas
+    Date: 11/21/2025
+
     Represents a hotel room.
     
     A Room contains all necessary information about a hotel room including
