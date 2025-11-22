@@ -22,6 +22,7 @@ from datetime import datetime
 
 
 def validate_date(date_string):
+    #Sergio Ruelas 11/21/2025
     """
     Validate if a string is a valid date in YYYY-MM-DD format.
     
@@ -33,15 +34,6 @@ def validate_date(date_string):
     
     Returns:
         datetime: Parsed datetime object if valid, None otherwise
-    
-    Example:
-        >>> date = validate_date("2025-11-14")
-        >>> print(type(date).__name__)
-        datetime
-        
-        >>> date = validate_date("invalid")
-        >>> print(date)
-        None
     """
     try:
         return datetime.strptime(date_string, "%Y-%m-%d")
@@ -50,6 +42,7 @@ def validate_date(date_string):
 
 
 def generate_conf_number():
+    #Sergio Ruelas 11/21/2025
     """
     Generate a random unique confirmation number.
     
@@ -58,18 +51,12 @@ def generate_conf_number():
     
     Returns:
         str: Confirmation number in format "CONF-XXXXXXXX"
-    
-    Example:
-        >>> conf = generate_conf_number()
-        >>> print(conf[:5])
-        CONF-
-        >>> print(len(conf))
-        13
     """
-    return 'CONF-' + ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+    return '#' + ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
 
 
 def load_bookings():
+    #Sergio Ruelas 11/21/2025
     """
     Load all bookings from the JSON storage file.
     
@@ -78,13 +65,6 @@ def load_bookings():
     
     Returns:
         list: List of booking dictionaries, empty list if none found
-    
-    Example:
-        >>> bookings = load_bookings()
-        >>> print(len(bookings))
-        5
-        >>> print(bookings[0]['confirmation_number'])
-        CONF-ABC123XY
     """
     json_file = "bookings/bookings.json"
     if os.path.exists(json_file):
@@ -97,72 +77,28 @@ def load_bookings():
 
 
 def save_booking(booking_dict):
-    """
-    Save a new booking to the JSON storage file.
-    
-    Appends new booking to existing bookings list and writes to disk.
-    Creates bookings directory if it doesn't exist.
-    
-    Args:
-        booking_dict (dict): Complete booking data dictionary
-        
-    Returns:
-        bool: True if successful, False otherwise
-    
-    Example:
-        >>> booking = {
-        ...     "confirmation_number": "CONF-ABC123",
-        ...     "guest_name": "John Doe",
-        ...     "total_price": 300.0
-        ... }
-        >>> success = save_booking(booking)
-        >>> print(success)
-        True
-    """
+    #Sergio Ruelas 11/21/2025
+    """Save a new booking to JSON file"""
     os.makedirs("bookings", exist_ok=True)
     bookings = load_bookings()
     bookings.append(booking_dict)
-    try:
-        with open("bookings/bookings.json", "w") as f:
-            json.dump(bookings, f, indent=2)
-        return True
-    except:
-        return False
+    with open("bookings/bookings.json", "w") as f:
+        json.dump(bookings, f, indent=2)
 
 
 def update_booking_status(conf_num, new_status):
-    """
-    Update the status of an existing booking.
-    
-    Finds booking by confirmation number and changes status to
-    either CONFIRMED or CANCELLED. Then writes updated list back to disk.
-    
-    Args:
-        conf_num (str): Confirmation number of booking to update
-        new_status (str): New status (CONFIRMED or CANCELLED)
-        
-    Returns:
-        bool: True if successful, False if booking not found
-    
-    Example:
-        >>> updated = update_booking_status("CONF-ABC123", "CANCELLED")
-        >>> print(updated)
-        True
-    """
+    #Sergio Ruelas 11/21/2025
+    """Update booking status in JSON file"""
     bookings = load_bookings()
     for booking in bookings:
         if booking.get('confirmation_number') == conf_num:
             booking['status'] = new_status
-            try:
-                with open("bookings/bookings.json", "w") as f:
-                    json.dump(bookings, f, indent=2)
-                return True
-            except:
-                return False
-    return False
+    with open("bookings/bookings.json", "w") as f:
+        json.dump(bookings, f, indent=2)
 
 
 def find_booking(conf_num):
+    #Sergio Ruelas 11/21/2025  
     """
     Find a booking by confirmation number.
     
@@ -174,17 +110,10 @@ def find_booking(conf_num):
         
     Returns:
         dict: Booking data if found, None otherwise
-    
-    Example:
-        >>> booking = find_booking("CONF-ABC123")
-        >>> if booking:
-        ...     print(booking['guest_name'])
-        John Doe
     """
     bookings = load_bookings()
     for booking in bookings:
-        if (booking.get('confirmation_number') == conf_num and 
-            booking.get('status') != 'CANCELLED'):
+        if (booking.get('confirmation_number') == conf_num and booking.get('status') != 'CANCELLED'):
             return booking
     return None
 #```

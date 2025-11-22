@@ -1,4 +1,4 @@
-﻿import tkinter as tk
+import tkinter as tk
 from tkinter import ttk, messagebox, scrolledtext
 from datetime import datetime, timedelta
 import os
@@ -36,14 +36,33 @@ class Room:
 #Utility methods
 
 def validate_date(date_string):
-    """Check if date is valid format (YYYY-MM-DD)"""
+    """
+    Validate if a string is a valid date in YYYY-MM-DD format.
+    
+    Attempts to parse the date string using standard format.
+    Returns None if parsing fails.
+    
+    Args:
+        date_string (str): Date string to validate
+    
+    Returns:
+        datetime: Parsed datetime object if valid, None otherwise
+    """
     try:
         return datetime.strptime(date_string, "%Y-%m-%d")
     except:
         return None
 
 def load_bookings():
-    """Load all bookings from JSON file"""
+    """
+    Load all bookings from the JSON storage file.
+    
+    Reads bookings.json file and returns all stored bookings.
+    Returns empty list if file doesn't exist or on read error.
+    
+    Returns:
+        list: List of booking dictionaries, empty list if none found
+    """
     json_file = "bookings/bookings.json"
     if os.path.exists(json_file):
         try:
