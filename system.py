@@ -19,7 +19,7 @@ from email.mime.multipart import MIMEMultipart
 
 #from models
 
-#Room Data
+#Room Data.py is keeping class Room 
 '''
 class Room:
     """Represents a hotel room"""
