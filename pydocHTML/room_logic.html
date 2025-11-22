@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module room_logic</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">room_logic</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:/Users/javiers/Documents/csun/compSci/comp380/hotelProj/room_logic.py">/Users/javiers/Documents/csun/compSci/comp380/hotelProj/room_logic.py</a></td></tr></table>
+    <p></p>
+<p>
+<table class="section">
+<tr class="decor functions-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
+    
+<tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt><a name="-get_available_rooms"><strong>get_available_rooms</strong></a>(rooms, check_in, check_out, num_guests, num_beds, amenities)</dt><dd><span class="code">Find&nbsp;available&nbsp;rooms&nbsp;based&nbsp;on&nbsp;user&nbsp;choice&nbsp;criteria&nbsp;such&nbsp;as&nbsp;number&nbsp;of&nbsp;guests,&nbsp;beds,&nbsp;date,&nbsp;and&nbsp;amenities<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;check_in&nbsp;(str):&nbsp;Check-in&nbsp;date&nbsp;variable&nbsp;in&nbsp;Year/Month/Day&nbsp;format<br>
+&nbsp;&nbsp;&nbsp;&nbsp;check_out&nbsp;(str):&nbsp;Check-out&nbsp;date&nbsp;variable&nbsp;in&nbsp;Year/Month/Day&nbsp;format<br>
+&nbsp;&nbsp;&nbsp;&nbsp;num_guests&nbsp;(int):&nbsp;Variable&nbsp;for&nbsp;number&nbsp;of&nbsp;guests&nbsp;chosen&nbsp;by&nbsp;user<br>
+&nbsp;&nbsp;&nbsp;&nbsp;num_beds&nbsp;(int):&nbsp;Variable&nbsp;for&nbsp;number&nbsp;of&nbsp;beds&nbsp;chosen&nbsp;by&nbsp;the&nbsp;user<br>
+&nbsp;&nbsp;&nbsp;&nbsp;amenities&nbsp;(list):&nbsp;The&nbsp;list&nbsp;of&nbsp;amenities&nbsp;the&nbsp;user&nbsp;chose,&nbsp;assuming&nbsp;they&nbsp;selected&nbsp;any<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;list:&nbsp;GUI&nbsp;will&nbsp;show&nbsp;the&nbsp;user&nbsp;the&nbsp;list&nbsp;of&nbsp;available&nbsp;rooms&nbsp;based&nbsp;on&nbsp;their&nbsp;selections</span></dd></dl>
+ <dl><dt><a name="-is_room_available"><strong>is_room_available</strong></a>(room_id, check_in, check_out)</dt><dd><span class="code">Check&nbsp;if&nbsp;the&nbsp;room&nbsp;is&nbsp;available&nbsp;for&nbsp;any&nbsp;specific&nbsp;date&nbsp;that&nbsp;the&nbsp;user&nbsp;chooses<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;room_id&nbsp;(str):&nbsp;The&nbsp;individual&nbsp;unique&nbsp;id&nbsp;for&nbsp;a&nbsp;particular&nbsp;room<br>
+&nbsp;&nbsp;&nbsp;&nbsp;check_in&nbsp;(str):&nbsp;The&nbsp;check-in&nbsp;date&nbsp;held&nbsp;in&nbsp;Year/Month/Day&nbsp;Fromat<br>
+&nbsp;&nbsp;&nbsp;&nbsp;check_out&nbsp;(str):&nbsp;The&nbsp;check-out&nbsp;date&nbsp;that&nbsp;will&nbsp;be&nbsp;held&nbsp;in&nbsp;the&nbsp;Year/Month/Day&nbsp;Format<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bool:&nbsp;True&nbsp;if&nbsp;room&nbsp;is&nbsp;available&nbsp;and&nbsp;False&nbsp;if&nbsp;it&nbsp;isn't&nbsp;available</span></dd></dl>
+</td></tr></table>
+</body></html>
