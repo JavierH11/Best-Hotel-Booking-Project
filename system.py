@@ -17,7 +17,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 
-#from models
+#from models.py  got all the functions moved for file manipulation. It needs to be updated
 
 #Room Data.py is keeping class Room 
 '''
@@ -648,6 +648,7 @@ class BestHotelBookingGroup:
                   bg="green", fg="white", width=30).pack()
 
     #Admin Report Section
+    #this sections needs to be its own file. We need to have it updated
 
     def show_login(self):
         """Admin login"""
