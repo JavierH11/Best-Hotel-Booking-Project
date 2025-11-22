@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module createReservation_logic</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">createReservation_logic</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:/Users/javiers/Documents/csun/compSci/comp380/hotelProj/createReservation_logic.py">/Users/javiers/Documents/csun/compSci/comp380/hotelProj/createReservation_logic.py</a></td></tr></table>
+    <p><span class="code">Best&nbsp;Hotel&nbsp;Booking&nbsp;-&nbsp;The&nbsp;reservation&nbsp;logic&nbsp;for&nbsp;the&nbsp;software<br>
+&nbsp;<br>
+This&nbsp;module&nbsp;handles&nbsp;all&nbsp;business&nbsp;logic&nbsp;for&nbsp;creating,&nbsp;modifying,&nbsp;and&nbsp;canceling&nbsp;reservations.&nbsp;It&nbsp;will&nbsp;also&nbsp;work&nbsp;with&nbsp;the&nbsp;storage&nbsp;and&nbsp;email&nbsp;sections.<br>
+&nbsp;<br>
+Functions:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;create_reservation:&nbsp;Create&nbsp;new&nbsp;reservation&nbsp;and&nbsp;send&nbsp;confirmation<br>
+&nbsp;&nbsp;&nbsp;&nbsp;modify_reservation:&nbsp;Modify&nbsp;reservation&nbsp;and&nbsp;send&nbsp;notification<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cancel_reservation:&nbsp;Cancel&nbsp;reservation&nbsp;and&nbsp;send&nbsp;cancellation&nbsp;email</span></p>
+<p>
+<table class="section">
+<tr class="decor functions-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
+    
+<tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt><a name="-cancel_reservation"><strong>cancel_reservation</strong></a>(conf_num, reservation, sender_email, sender_password)</dt><dd><span class="code">Cancel&nbsp;an&nbsp;existing&nbsp;reservation&nbsp;and&nbsp;send&nbsp;notification&nbsp;email.<br>
+&nbsp;<br>
+Updates&nbsp;reservation&nbsp;status&nbsp;to&nbsp;'Cancelled'&nbsp;and&nbsp;sends&nbsp;cancellation&nbsp;confirmation&nbsp;email&nbsp;to&nbsp;guest.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;conf_num&nbsp;(str):&nbsp;Confirmation&nbsp;number&nbsp;to&nbsp;cancel<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reservation&nbsp;(dict):&nbsp;reservation&nbsp;data<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sender_email&nbsp;(str):&nbsp;Hotel&nbsp;email&nbsp;address<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sender_password&nbsp;(str):&nbsp;Hotel&nbsp;email&nbsp;app&nbsp;password<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bool:&nbsp;True&nbsp;if&nbsp;successful,&nbsp;False&nbsp;if&nbsp;update&nbsp;failed</span></dd></dl>
+ <dl><dt><a name="-create_reservation"><strong>create_reservation</strong></a>(guest_info, room, preferences, sender_email, sender_password)</dt><dd><span class="code">Create&nbsp;a&nbsp;new&nbsp;reservation&nbsp;and&nbsp;send&nbsp;confirmation&nbsp;email.<br>
+&nbsp;<br>
+Creates&nbsp;reservation&nbsp;record,&nbsp;saves&nbsp;to&nbsp;storage,&nbsp;and&nbsp;sends&nbsp;confirmation<br>
+email&nbsp;to&nbsp;guest&nbsp;with&nbsp;reservation&nbsp;details.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;guest_info&nbsp;(dict):&nbsp;Guest&nbsp;information&nbsp;dict&nbsp;with&nbsp;keys:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;'name':&nbsp;Full&nbsp;name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;'email':&nbsp;Email&nbsp;address<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;'phone':&nbsp;Phone&nbsp;number<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;'card':&nbsp;Credit&nbsp;card&nbsp;(for&nbsp;validation&nbsp;only)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;room&nbsp;(Room):&nbsp;Room&nbsp;object&nbsp;to&nbsp;book<br>
+&nbsp;&nbsp;&nbsp;&nbsp;preferences&nbsp;(dict):&nbsp;reservation&nbsp;preferences&nbsp;with&nbsp;keys:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;'check_in':&nbsp;Check-in&nbsp;date&nbsp;"YYYY-MM-DD"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;'check_out':&nbsp;Check-out&nbsp;date&nbsp;"YYYY-MM-DD"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;'nights':&nbsp;Number&nbsp;of&nbsp;nights&nbsp;(int)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sender_email&nbsp;(str):&nbsp;Hotel&nbsp;email&nbsp;address<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sender_password&nbsp;(str):&nbsp;Hotel&nbsp;email&nbsp;app&nbsp;password<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;Created&nbsp;reservation&nbsp;data&nbsp;including&nbsp;confirmation&nbsp;number</span></dd></dl>
+ <dl><dt><a name="-modify_reservation"><strong>modify_reservation</strong></a>(
+    old_conf_num,
+    new_guest_info,
+    new_preferences,
+    room,
+    sender_email,
+    sender_password
+)</dt><dd><span class="code">Modify&nbsp;an&nbsp;existing&nbsp;reservation&nbsp;and&nbsp;send&nbsp;notification&nbsp;email&nbsp;to&nbsp;the&nbsp;user.&nbsp;It&nbsp;also&nbsp;cancels&nbsp;the&nbsp;old&nbsp;reservation,&nbsp;creates&nbsp;new&nbsp;reservation&nbsp;with&nbsp;updated&nbsp;details,&nbsp;<br>
+and&nbsp;sends&nbsp;email&nbsp;to&nbsp;guest&nbsp;that&nbsp;the&nbsp;reservation&nbsp;has&nbsp;been&nbsp;modified.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;old_conf_num&nbsp;(str):&nbsp;Confirmation&nbsp;number&nbsp;of&nbsp;reservation&nbsp;to&nbsp;modify<br>
+&nbsp;&nbsp;&nbsp;&nbsp;new_guest_info&nbsp;(dict):&nbsp;Updated&nbsp;guest&nbsp;information<br>
+&nbsp;&nbsp;&nbsp;&nbsp;new_preferences&nbsp;(dict):&nbsp;New&nbsp;reservation&nbsp;preferences<br>
+&nbsp;&nbsp;&nbsp;&nbsp;room&nbsp;(Room):&nbsp;Room&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sender_email&nbsp;(str):&nbsp;Hotel&nbsp;email&nbsp;address<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sender_password&nbsp;(str):&nbsp;Hotel&nbsp;email&nbsp;app&nbsp;password<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;New&nbsp;reservation&nbsp;data,&nbsp;or&nbsp;None&nbsp;if&nbsp;old&nbsp;reservation&nbsp;not&nbsp;found</span></dd></dl>
+</td></tr></table>
+</body></html>

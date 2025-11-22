@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module storage</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">storage</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:/Users/javiers/Documents/csun/compSci/comp380/hotelProj/storage.py">/Users/javiers/Documents/csun/compSci/comp380/hotelProj/storage.py</a></td></tr></table>
+    <p></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="json.html">json</a><br>
+</td><td class="multicolumn"><a href="os.html">os</a><br>
+</td><td class="multicolumn"></td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor functions-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
+    
+<tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt><a name="-find_booking"><strong>find_booking</strong></a>(conf_num)</dt><dd><span class="code">Find&nbsp;a&nbsp;particular&nbsp;reservation&nbsp;by&nbsp;inputting&nbsp;a&nbsp;confirmation&nbsp;number<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;conf_num&nbsp;(str):&nbsp;The&nbsp;confirmation&nbsp;number<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;Reservation&nbsp;with&nbsp;all&nbsp;the&nbsp;details&nbsp;particular&nbsp;to&nbsp;that&nbsp;confirmation&nbsp;number</span></dd></dl>
+ <dl><dt><a name="-load_bookings"><strong>load_bookings</strong></a>()</dt><dd><span class="code">Load&nbsp;all&nbsp;bookings&nbsp;from&nbsp;the&nbsp;JSON&nbsp;storage&nbsp;file.<br>
+&nbsp;<br>
+Reads&nbsp;bookings.json&nbsp;file&nbsp;and&nbsp;returns&nbsp;all&nbsp;stored&nbsp;bookings.<br>
+Returns&nbsp;empty&nbsp;list&nbsp;if&nbsp;file&nbsp;doesn't&nbsp;exist&nbsp;or&nbsp;on&nbsp;read&nbsp;error.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;list:&nbsp;List&nbsp;of&nbsp;booking&nbsp;dictionaries,&nbsp;empty&nbsp;list&nbsp;if&nbsp;none&nbsp;found</span></dd></dl>
+ <dl><dt><a name="-save_booking"><strong>save_booking</strong></a>(booking_dict)</dt><dd><span class="code">Save&nbsp;a&nbsp;new&nbsp;booking&nbsp;to&nbsp;JSON&nbsp;file</span></dd></dl>
+ <dl><dt><a name="-update_booking_status"><strong>update_booking_status</strong></a>(conf_num, new_status)</dt><dd><span class="code">Update&nbsp;booking&nbsp;status&nbsp;in&nbsp;JSON&nbsp;file</span></dd></dl>
+</td></tr></table>
+</body></html>

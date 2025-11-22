@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module email_service</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">email_service</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:/Users/javiers/Documents/csun/compSci/comp380/hotelProj/email_service.py">/Users/javiers/Documents/csun/compSci/comp380/hotelProj/email_service.py</a></td></tr></table>
+    <p><span class="code">Hotel&nbsp;Booking&nbsp;System&nbsp;-&nbsp;Email&nbsp;Service<br>
+&nbsp;<br>
+This&nbsp;module&nbsp;handles&nbsp;sending&nbsp;email&nbsp;notifications&nbsp;to&nbsp;guests&nbsp;for:<br>
+-&nbsp;Booking&nbsp;confirmations<br>
+-&nbsp;Booking&nbsp;modifications<br>
+-&nbsp;Booking&nbsp;cancellations<br>
+&nbsp;<br>
+#We&nbsp;will&nbsp;see&nbsp;if&nbsp;there&nbsp;is&nbsp;a&nbsp;way&nbsp;to&nbsp;use&nbsp;a&nbsp;different&nbsp;service&nbsp;with&nbsp;a&nbsp;dummy&nbsp;email&nbsp;account.<br>
+Requires&nbsp;Gmail&nbsp;account&nbsp;with&nbsp;app-specific&nbsp;password&nbsp;(not&nbsp;regular&nbsp;password).<br>
+&nbsp;<br>
+Functions:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;send_email:&nbsp;Send&nbsp;email&nbsp;notification&nbsp;to&nbsp;recipient</span></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="smtplib.html">smtplib</a><br>
+</td><td class="multicolumn"></td><td class="multicolumn"></td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor functions-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
+    
+<tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt><a name="-send_email"><strong>send_email</strong></a>(sender_email, sender_password, recipient_email, subject, message)</dt><dd><span class="code">Send&nbsp;an&nbsp;email&nbsp;notification&nbsp;to&nbsp;a&nbsp;guest.<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sender_email&nbsp;(str):&nbsp;Email&nbsp;address&nbsp;to&nbsp;send&nbsp;from<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sender_password&nbsp;(str):&nbsp;Gmail&nbsp;app-specific&nbsp;password&nbsp;(NOT&nbsp;regular&nbsp;password)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;recipient_email&nbsp;(str):&nbsp;Guest&nbsp;email&nbsp;address<br>
+&nbsp;&nbsp;&nbsp;&nbsp;subject&nbsp;(str):&nbsp;Email&nbsp;subject&nbsp;line<br>
+&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;(str):&nbsp;Email&nbsp;message&nbsp;body&nbsp;(plain&nbsp;text)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bool:&nbsp;True&nbsp;if&nbsp;sent&nbsp;successfully,&nbsp;False&nbsp;otherwise</span></dd></dl>
+</td></tr></table>
+</body></html>
