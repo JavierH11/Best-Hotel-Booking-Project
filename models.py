@@ -2,8 +2,7 @@
 """
 Hotel Booking System - Data Models
 
-This module defines the Room and Booking data structures used throughout
-the hotel booking application.
+This module defines the Room and Booking data structures used throughout the hotel booking application.
 
 Classes:
     Room: Represents a hotel room with amenities and pricing.
@@ -16,16 +15,15 @@ class Room:
 
     Represents a hotel room.
     
-    A Room contains all necessary information about a hotel room including
-    its type, capacity, number of beds, pricing, and available amenities.
+    A Room contains all necessary information about a hotel room including its type, capacity, number of beds, pricing, and available amenities.
     
     Attributes:
-        room_id (str): Unique identifier for the room (e.g., "R001")
-        room_type (str): Type of room (Single, Double, Suite)
         max_guests (int): Maximum number of guests allowed in room
         num_beds (int): Number of beds in the room
         price (float): Nightly rate in dollars
-        amenities (list): List of available amenities (WiFi, AC, Bathtub, etc.)
+        amenities (list): List of available amenities (WiFi, AC, Bathtub, etc.)    
+        room_id (str): Unique identifier for the room (e.g., "R001")
+        room_type (str): Type of room (Single, Double, Suite)
     """
     
     def __init__(self, room_id, room_type, max_guests, num_beds, price, amenities):
