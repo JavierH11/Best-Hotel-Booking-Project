@@ -54,6 +54,7 @@ def validate_date(date_string):
         return None
 
 def load_bookings():
+    #Javier Herrera 11/21/2025
     """
     Load all bookings from the JSON storage file.
     
@@ -73,6 +74,7 @@ def load_bookings():
     return []
 
 def save_booking(booking_dict):
+    #Sergio Ruelas 11/21/2025
     """Save a new booking to JSON file"""
     os.makedirs("bookings", exist_ok=True)
     bookings = load_bookings()
@@ -81,6 +83,7 @@ def save_booking(booking_dict):
         json.dump(bookings, f, indent=2)
 
 def update_booking_status(conf_num, new_status):
+    #Javier Herrera 11/21/2025
     """Update booking status in JSON file"""
     bookings = load_bookings()
     for booking in bookings:
@@ -90,13 +93,14 @@ def update_booking_status(conf_num, new_status):
         json.dump(bookings, f, indent=2)
 
 def find_booking(conf_num):
+    #Sergio Ruelas 11/21/2025
     """Find a particular reservation by inputting a confirmation number
 
     Args:
         conf_num (str): The confirmation number
 
     Returns:
-        list: Reservation with all the details particular to that confirmation number
+        dist: Reservation with all the details particular to that confirmation number
     """
     bookings = load_bookings()
     for booking in bookings:
@@ -105,6 +109,7 @@ def find_booking(conf_num):
     return None
 
 def generate_conf_number():
+    #Sergio Ruelas 11/21/2025
     """Generate random confirmation number for user
 
     Returns:
