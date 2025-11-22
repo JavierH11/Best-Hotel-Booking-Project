@@ -3,14 +3,14 @@ from utils import load_bookings
 """
 Hotel Booking System - Data Storage
 
-This module handles all file I/O operations for persisting booking data
-to a JSON file. All bookings are stored in bookings/bookings.json
+This module handles all file I/O operations for persisting booking data to a JSON file. All bookings are stored in bookings/bookings.json
 
 Functions:
     load_bookings: Load all bookings from JSON file
     save_booking: Add new booking to JSON file
     update_booking_status: Update existing booking status
     find_booking: Search for booking by confirmation number
+Note: There is alot of overlap between storage.py and models.py, next stages Sergio and Javier will have to work together to merge both files or find another solution
 """
 
 import json
