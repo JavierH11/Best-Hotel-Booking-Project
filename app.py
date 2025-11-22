@@ -87,7 +87,6 @@ class BestHotelBookingGroup:
     def clear_screen(self):
         """
         This clears the current frame
-        
         Allows for new menu displays to takeover frame
         """
         if self.current_frame:
@@ -96,7 +95,6 @@ class BestHotelBookingGroup:
     def updateScreen(self,bColor,xSize,ySize):
         """
         Updates the window screen to display the new function/menu
-
         Clears the window to show new interactive menu
         """
         self.clear_screen()
@@ -111,7 +109,6 @@ class BestHotelBookingGroup:
     def search(self,conf_entry,method):
             """
             Checks if Reservation Exists
-            
             Passes user to corresponding method
             Example:
                 if cancelling
@@ -129,6 +126,7 @@ class BestHotelBookingGroup:
     def show_homepage(self):
         #Matthew Cabrera 11/21/2025
         """
+        #Current backdrop may be changed in the future
         Display the homepage with buttons for all 4 functions.
         
         Contains buttons for the following functions:
