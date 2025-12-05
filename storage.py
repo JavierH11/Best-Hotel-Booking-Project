@@ -47,6 +47,113 @@ def save_booking(booking_dict):
     with open("bookings/bookings.json", "w") as f:  # Open the bookings JSON file in write mode (overwrite existing)
         json.dump(bookings, f, indent=2)            # Serialize the full bookings list to JSON and write it with pretty indentation
 
+# Test ID: STOR 1 (starts)
+# Tests the data to ensure save functinality
+test_booking = {
+    "confirmation_number": "#TEST123",
+    "guest_name": "Test User",
+    "guest_email": "test@example.com",
+    "guest_phone": "555-1234",
+    "room_type": "Double",
+    "room_id": "R002",
+    "check_in": "2025-12-10",
+    "check_out": "2025-12-12",
+    "nights": 2,
+    "total_price": 300.0,
+    "status": "CONFIRMED"
+}
+
+# Execute the save
+save_booking(test_booking)
+
+# Check what was created
+print("✅ STOR_001 TEST EXECUTION")
+print("=" * 50)
+
+# Read back the file
+with open("bookings/bookings.json", "r") as f:
+    saved_data = json.load(f)
+
+print(f"Number of bookings saved: {len(saved_data)}")
+print(f"Booking confirmation number: {saved_data[0]['confirmation_number']}")
+print(f"Booking status: {saved_data[0]['status']}")
+print("=" * 50)
+
+## Test ID: STOR 1 (ends)
+
+# Test ID: STOR 2 (starts)
+# Clear old data
+if os.path.exists("bookings"):
+    import shutil
+    shutil.rmtree("bookings")
+
+booking1 = {
+    "confirmation_number": "#ABC001",
+    "guest_name": "John Doe",
+    "guest_email": "john@example.com",
+    "guest_phone": "555-1111",
+    "room_type": "Single",
+    "room_id": "R001",
+    "check_in": "2025-12-10",
+    "check_out": "2025-12-12",
+    "nights": 2,
+    "total_price": 200.0,
+    "status": "CONFIRMED"
+}
+
+booking2 = {
+    "confirmation_number": "#ABC002",
+    "guest_name": "Jane Doe",
+    "guest_email": "jane@example.com",
+    "guest_phone": "555-2222",
+    "room_type": "Double",
+    "room_id": "R002",
+    "check_in": "2025-12-15",
+    "check_out": "2025-12-17",
+    "nights": 2,
+    "total_price": 300.0,
+    "status": "CONFIRMED"
+}
+
+booking3 = {
+    "confirmation_number": "#ABC003",
+    "guest_name": "Bob Smith",
+    "guest_email": "bob@example.com",
+    "guest_phone": "555-3333",
+    "room_type": "Suite",
+    "room_id": "R003",
+    "check_in": "2025-12-20",
+    "check_out": "2025-12-22",
+    "nights": 2,
+    "total_price": 500.0,
+    "status": "CONFIRMED"
+}
+
+# SAVE THREE BOOKINGS (one after another)
+print("✅ STOR_002 TEST EXECUTION")
+print("=" * 50)
+
+print("Saving booking 1...")
+save_booking(booking1)
+
+print("Saving booking 2...")
+save_booking(booking2)
+
+print("Saving booking 3...")
+save_booking(booking3)
+
+# READ BACK AND VERIFY
+with open("bookings/bookings.json", "r") as f:
+    all_bookings = json.load(f)
+
+print(f"\nTotal bookings saved: {len(all_bookings)}")
+print(f"Booking 1: {all_bookings[0]['confirmation_number']} - {all_bookings[0]['guest_name']}")
+print(f"Booking 2: {all_bookings[1]['confirmation_number']} - {all_bookings[1]['guest_name']}")
+print(f"Booking 3: {all_bookings[2]['confirmation_number']} - {all_bookings[2]['guest_name']}")
+print("=" * 50)
+
+# Test ID: STOR 2 (ends)
+
 
 def update_booking_status(conf_num, new_status):
     #Javier Herrera 11/21/2025
