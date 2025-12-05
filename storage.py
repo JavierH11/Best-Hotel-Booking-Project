@@ -1,4 +1,4 @@
-from utils import load_bookings
+﻿from utils import load_bookings
 
 """
 Hotel Booking System - Data Storage
@@ -28,24 +28,24 @@ def load_bookings():
     Returns:
         list: List of booking dictionaries, empty list if none found
     """
-    json_file = "bookings/bookings.json"
-    if os.path.exists(json_file):
-        try:
-            with open(json_file, "r") as f:
-                return json.load(f)
-        except:
-            return []
-    return []
+    json_file = "bookings/bookings.json"    # Set the path to the JSON file that stores bookings
+    if os.path.exists(json_file):           # Check if the bookings JSON file actually exists on disk
+        try:                                # Start a try block to safely attempt to read and parse the JSON file
+            with open(json_file, "r") as f: # Open the bookings file in read mode and assign it to f
+                return json.load(f)         # Parse the JSON content into Python objects and return the list of bookings
+        except:                             # If any error occurs while opening or reading/parsing the file
+            return []                       # Fail gracefully by returning an empty list instead of crashing
+    return []                               # If the file does not exist at all, return an empty list as there are no bookings
 
 
 def save_booking(booking_dict):
     #Sergio Ruelas 11/21/2025
     """Save a new booking to JSON file"""
-    os.makedirs("bookings", exist_ok=True)
-    bookings = load_bookings()
-    bookings.append(booking_dict)
-    with open("bookings/bookings.json", "w") as f:
-        json.dump(bookings, f, indent=2)
+    os.makedirs("bookings", exist_ok=True)          # Ensure the 'bookings' directory exists, create it if it does not
+    bookings = load_bookings()                      # Load the current list of bookings from the JSON file (or [] if none)
+    bookings.append(booking_dict)                   # Add the new booking dictionary to the in‑memory bookings list
+    with open("bookings/bookings.json", "w") as f:  # Open the bookings JSON file in write mode (overwrite existing)
+        json.dump(bookings, f, indent=2)            # Serialize the full bookings list to JSON and write it with pretty indentation
 
 
 def update_booking_status(conf_num, new_status):
