@@ -47,6 +47,7 @@ def save_booking(booking_dict):
     with open("bookings/bookings.json", "w") as f:  # Open the bookings JSON file in write mode (overwrite existing)
         json.dump(bookings, f, indent=2)            # Serialize the full bookings list to JSON and write it with pretty indentation
 
+'''
 # Test ID: STOR 1 (starts)
 # Tests the data to ensure save functinality
 test_booking = {
@@ -153,7 +154,7 @@ print(f"Booking 3: {all_bookings[2]['confirmation_number']} - {all_bookings[2]['
 print("=" * 50)
 
 # Test ID: STOR 2 (ends)
-
+'''
 
 def update_booking_status(conf_num, new_status):
     #Javier Herrera 11/21/2025
