@@ -1,6 +1,5 @@
 from models import Room
 from utils import validate_date
-#from storage import load_bookings
 from utils import load_bookings
 
 #Function that checks for room availability   
