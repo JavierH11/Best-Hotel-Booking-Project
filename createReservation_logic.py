@@ -10,7 +10,9 @@ Functions:
 """
 #Files/methods from my teammates to make the program work
 from utils import generate_conf_number
-from storage import save_booking, find_booking, update_booking_status
+# from storage import save_booking, find_booking, update_booking_status
+from utils import save_booking, find_booking, update_booking_status
+
 from email_service import send_email
 
 #New reservation method/function when user selects that create new reservation button

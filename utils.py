@@ -1,4 +1,4 @@
-#```python
+﻿#```python
 """
 Hotel Booking System - Utility Functions
 
@@ -110,3 +110,4 @@ def find_booking(conf_num):
             return booking
     return None
 #```
+

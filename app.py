@@ -14,7 +14,8 @@ from datetime import datetime, timedelta
 # Import from other modules
 from models import Room
 from utils import validate_date, generate_conf_number, load_bookings, find_booking, save_booking
-from storage import load_bookings, find_booking
+# from storage import load_bookings, find_booking
+from utils import load_bookings, find_booking
 from createReservation_logic import create_reservation, modify_reservation, cancel_reservation
 from room_logic import get_available_rooms
 from email_service import send_email
