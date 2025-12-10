@@ -7,6 +7,7 @@ help handle the change of screens the user interacts with
 Class:
     HotelBookingApp: Main software/project controller
 """
+import os
 import tkinter as tk
 from tkinter import ttk, messagebox, scrolledtext
 from datetime import datetime, timedelta
@@ -69,9 +70,10 @@ class BestHotelBookingGroup:
         self.admin_user = "admin"
         self.admin_pass = "admin123"
 
-        #Email configuration - UPDATE THESE WITH YOUR EMAIL
-        self.email_sender = "your_hotel_email@gmail.com"
-        self.email_password = "your_app_password" # user Gmail app password
+        #Email configuration
+        self.email_sender = os.environ.get("user_email", "")
+        self.email_password = os.environ.get("user_pass", "") # user Gmail app password
+
 
         #Track current frame for clearing
         self.current_frame = None
