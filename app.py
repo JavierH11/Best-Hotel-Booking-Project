@@ -59,11 +59,21 @@ class BestHotelBookingGroup:
         screen_width = root.winfo_screenwidth()
         root.geometry(f"{screen_width}x{screen_height}+0+0")
 
+        #(self, room_id, room_type, max_guests, num_beds, price, amenities)
         #Initialize room data - 3 room types available
+        #WiFi - $10 - $10","Air Conditioning - $25 - $25", "Bathtub - $38 - $38", "Mini-Fridge - $52 - $52
+        #1 - Included", "2 - $35", "3 - $90
         self.rooms = [
-            Room("R001", "Single", 1, 1, 100.0, ["WiFi", "AC"]),
-            Room("R002", "Double", 2, 1, 150.0, ["WiFi", "AC", "Bathtub"]),
-            Room("R003", "Suite", 4, 2, 250.0, ["WiFi", "AC", "Bathtub", "Mini Bar"])
+            Room("R000", "Single", 1, 1, 100.0, ["None"]),
+            Room("R001", "Single", 1, 1, 110.0, ["WiFi - $10"]),
+            Room("R002", "Double", 1, 1, 125.0, ["Air Conditioning - $25"]),
+            Room("R003", "Suite", 4, 2, 500.0, ["Bathtub - $38"]),
+            Room("R004", "Suite", 4, 2, 500.0, ["Mini-Fridge - $52"]),
+            Room("R005", "Single", 1, 1, 100.0, ["WiFi - $10", "Air Conditioning - $25"]),
+            Room("R006", "Double", 2, 1, 150.0, ["WiFi - $10", "Air Conditioning - $25", "Bathtub - $38"]),
+            Room("R007", "Suite", 4, 2, 250.0, ["Bathtub - $38", "Mini-Fridge - $52"]),
+            Room("R008", "Suite", 4, 2, 250.0, ["WiFi - $10", "Air Conditioning - $25", "Bathtub - $38"]),
+            Room("R009", "Suite", 4, 2, 250.0, ["WiFi - $10", "Air Conditioning - $25", "Bathtub - $38", "Mini-Fridge - $52"])
         ]
 
         #Admin credentials for report access
@@ -72,8 +82,7 @@ class BestHotelBookingGroup:
 
         #Email configuration
         self.email_sender = os.environ.get("user_email", "")
-        self.email_password = os.environ.get("user_pass", "") # user Gmail app password
-
+        self.email_password = os.environ.get("user_pass", "") #Use User Gmail App Password
 
         #Track current frame for clearing
         self.current_frame = None
@@ -84,7 +93,7 @@ class BestHotelBookingGroup:
     def createButton(self,buttonText,color,toDo,space,size):
         """This creates similar buttons so code doesn't duplicate"""
         tk.Button(self.current_frame, text=buttonText, 
-                font=("Arial", size), bg=color, fg="white",
+                font=("Times New Roman", size), bg=color, fg="black",
                 command=toDo, width=30, height=2).pack(pady=space)
 
     def clear_screen(self):
@@ -141,20 +150,21 @@ class BestHotelBookingGroup:
         The first screen users will see when launching program.
         """
         #Update screen with new menu display
-        self.updateScreen(bColor="lightblue",xSize=0,ySize=0)
+        self.updateScreen(bColor="lemon chiffon",xSize=0,ySize=0)
         #Title
+        #degree_symbol = "\u00B0"
         tk.Label(self.current_frame, text="Hotel Reservation System", 
-                font=("Arial", 24, "bold"), bg="lightblue").pack(pady=30)
-        tk.Label(self.current_frame, text="Welcome to Hotel Management", 
-                font=("Arial", 12), bg="lightblue").pack(pady=10)
+                font=("Georgia", 30, "bold"), bg="lemon chiffon").pack(pady=30)
+        tk.Label(self.current_frame, text="Welcome esteemed guest, to the greatest Hotel in the entire universe!", 
+                font=("Georgia", 18, "bold"), bg="lemon chiffon").pack(pady=10)
         #Create Reservation Button
-        self.createButton(buttonText="Create Reservation",color="green",toDo=self.preferences,space=10,size=12)
+        self.createButton(buttonText="Create a Reservation", color="green", toDo=self.preferences, space=10,size=12)
         #Modify Reservation Button
-        self.createButton(buttonText="Modify Reservation",color="orange",toDo=self.show_modify,space=10,size=12)
+        self.createButton(buttonText="Modify a Reservation", color="orange", toDo=self.show_modify, space=10,size=12)
         #Cancel Reservation Button
-        self.createButton(buttonText="Cancel Reservation",color="red",toDo=self.show_cancel,space=10,size=12)
+        self.createButton(buttonText="Cancel a Reservation", color="red", toDo=self.show_cancel, space=10,size=12)
         #Admin Report Button
-        self.createButton(buttonText="Admin Report",color="purple",toDo=self.show_login,space=10,size=12)
+        self.createButton(buttonText="Admin Report", color="purple", toDo=self.show_login, space=10,size=12)
         
     #Resrvation
     def preferences(self):
@@ -172,33 +182,33 @@ class BestHotelBookingGroup:
         the reservation process
         """
         #Update screen with new menu display
-        self.updateScreen(bColor=None,xSize=20,ySize=20)
+        self.updateScreen(bColor="lemon chiffon",xSize=20,ySize=20)
         #Title
-        tk.Label(self.current_frame, text="Step 1: Your Preferences", font=("Arial",16,"bold")).pack(pady=10)
+        tk.Label(self.current_frame, text="Choose your preferences!", font=("Times New Roman", 16, "bold"), bg=("lemon chiffon")).pack(pady=10)
         #Check-In Date Input
-        tk.Label(self.current_frame,text="Check-In (YYYY-MM-DD):").pack()
+        tk.Label(self.current_frame,text="Tell us your Check-In dates! (YYYY-MM-DD):", font=("Times New Roman", 12, "bold"), bg=("lemon chiffon")).pack()
         check_in_entry = tk.Entry(self.current_frame,width=20)
         check_in_entry.pack()
         check_in_entry.insert(0, (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d"))
         #Check-Out Date Input
-        tk.Label(self.current_frame, text="Check-Out (YYYY-MM-DD):",pady=10).pack()
+        tk.Label(self.current_frame, text="Tell us your Check-Out dates! (YYYY-MM-DD):", font=("Times New Roman", 12, "bold"), bg=("lemon chiffon"),pady=10).pack()
         check_out_entry = tk.Entry(self.current_frame,width=20)
         check_out_entry.pack()
         check_out_entry.insert(0, (datetime.now() + timedelta(days=2)).strftime("%Y-%m-%d"))
         #Number of guests dropdown menu
-        tk.Label(self.current_frame, text="Guests:",pady=10).pack()
+        tk.Label(self.current_frame, text="Guests:", bg=("lemon chiffon"),pady=10).pack()
         guests_var = tk.StringVar(value="1")
-        ttk.Combobox(self.current_frame, textvariable=guests_var, values=["1","2","3","4"],width=10,state="readonly").pack()
+        ttk.Combobox(self.current_frame, textvariable=guests_var, values=["1", "2", "3", "4"], width=10, state="readonly").pack()
         #Number of beds dropdown menu
-        tk.Label(self.current_frame, text="Beds:",pady=10).pack()
+        tk.Label(self.current_frame, text="Beds:", bg=("lemon chiffon"), pady=10).pack()
         beds_var = tk.StringVar(value="1")
-        ttk.Combobox(self.current_frame, textvariable=beds_var, values=["1","2","3"],width=10,state="readonly").pack()
+        ttk.Combobox(self.current_frame, textvariable=beds_var, values=["1", "2", "3"], width=10, state="readonly").pack()
         #Amenities checkbox selection, we need to add more later guys
-        tk.Label(self.current_frame, text="Amenities:",pady=10).pack()
+        tk.Label(self.current_frame, text="Amenities:", bg=("lemon chiffon"), pady=10).pack()
         amenity_check={}
-        for amenity in ["Wifi","AC", "Bathtub", "Mini Bar"]:
+        for amenity in ["WiFi - $10", "Air Conditioning - $25", "Bathtub - $38", "Mini-Fridge - $52"]:
             var = tk.BooleanVar()
-            tk.Checkbutton(self.current_frame,text=amenity, variable=var).pack(anchor="w",padx=20)
+            tk.Checkbutton(self.current_frame,text=amenity, bg=("lemon chiffon"), variable=var).pack(anchor="w",padx=20)
             amenity_check[amenity] = var
 
         def search():
@@ -264,19 +274,19 @@ class BestHotelBookingGroup:
             prefs (dict): Preferences from step 1
         """   
         #Update screen with new menu display
-        self.updateScreen(bColor=None,xSize=20,ySize=20)
+        self.updateScreen(bColor="lemon chiffon",xSize=20,ySize=20)
 
         #Title
-        tk.Label(self.current_frame, text="Step 2: Select Room", font=("Arial", 16, "bold")).pack(pady=10)
+        tk.Label(self.current_frame, text="Select your desired room!", bg=("lemon chiffon"), font=("Times New Roman", 16, "bold")).pack(pady=10)
 
         #Show Dates Selected
         summary_text = f"{prefs['check_in']} to {prefs['check_out']} ({prefs['nights']} nights)"
-        tk.Label(self.current_frame, text=summary_text, bg="lightyellow",padx=10,pady=5).pack(fill="x",pady=10)
+        tk.Label(self.current_frame, text=summary_text, bg="lemon chiffon", padx=10, pady=5).pack(fill="x",pady=10)
 
         #Room Selection Variable
         room_var = tk.StringVar()
 
-        # Create Scrollable Window to view rooms available
+        #Create Scrollable Window to view rooms available
         room_frame = tk.Frame(self.current_frame, bg="lightgray", relief="sunken", bd=1)
         room_frame.pack(fill="both", expand=True, padx=10, pady=10)
         canvas = tk.Canvas(room_frame, bg="lightgray")
@@ -298,12 +308,12 @@ class BestHotelBookingGroup:
             room_box.pack(fill="x", padx=5, pady=5)
             #Room Selection Radio Button
             tk.Radiobutton(room_box, text=f"{room.room_type} - ${room.price}/night", variable=room_var,
-                           value=room.room_id, font=("Arial", 11), bg="white").pack(anchor="w", padx=10, pady=5)
+                           value=room.room_id, font=("Times New Roman", 11), bg="white").pack(anchor="w", padx=10, pady=5)
             #Room Details
             details_text = (f"Beds: {room.num_beds} | "
                             f"Amenities: {amenity_str}\n"
                             f"Total for {prefs['nights']} night(s): ${total:.2f}")
-            tk.Label(room_box, text=details_text, font=("Arial",9), bg="white",
+            tk.Label(room_box, text=details_text, font=("Times New Roman",9), bg="white",
                      fg="darkblue").pack(anchor="w", padx=30)
         
         def next_step():
@@ -345,10 +355,10 @@ class BestHotelBookingGroup:
             booking_info (dict): Room and user selections from previous steps (steps 1 and 2)
         """
         #Update window with new menu display
-        self.updateScreen(bColor=None,xSize=20,ySize=20)
+        self.updateScreen(bColor="lemon chiffon",xSize=20,ySize=20)
 
         #Title
-        tk.Label(self.current_frame, text="Step 3: Guest Details", font=("Arial", 16, "bold")).pack(pady=10)
+        tk.Label(self.current_frame, text="Guest Details", font=("Times New Roman", 16, "bold"), bg=("lemon chiffon")).pack(pady=10)
 
         #Booking SUmmary
         summary_frame = tk.LabelFrame(self.current_frame, text="Reservation Summary", padx=10,pady=10, bg="lightblue")
@@ -363,19 +373,19 @@ class BestHotelBookingGroup:
         tk.Label(summary_frame, text=summary_text, bg="lightblue").pack(anchor="w")
 
         #Guest Information Form
-        tk.Label(self.current_frame, text="Name:", pady=10).pack()
+        tk.Label(self.current_frame, text="Name:", bg=("lemon chiffon"), pady=10).pack()
         name_entry = tk.Entry(self.current_frame,width=30)
         name_entry.pack()
 
-        tk.Label(self.current_frame, text="Email:", pady=10).pack()
+        tk.Label(self.current_frame, text="Email:", bg=("lemon chiffon"), pady=10).pack()
         email_entry = tk.Entry(self.current_frame,width=30)
         email_entry.pack()
 
-        tk.Label(self.current_frame, text="Phone:", pady=10).pack()
+        tk.Label(self.current_frame, text="Phone:", bg=("lemon chiffon"), pady=10).pack()
         phone_entry = tk.Entry(self.current_frame,width=20)
         phone_entry.pack()
 
-        tk.Label(self.current_frame, text="Card Number:", pady=10).pack()
+        tk.Label(self.current_frame, text="Card Number:", bg=("lemon chiffon"), pady=10).pack()
         card_entry = tk.Entry(self.current_frame,width=20)
         card_entry.pack()
 
@@ -428,29 +438,29 @@ class BestHotelBookingGroup:
         self.updateScreen(bColor="lightgreen",xSize=20,ySize=20)
 
         #Title
-        tk.Label(self.current_frame, text = "Reservation Confirmed!", font=("Arial",14,"bold"),
+        tk.Label(self.current_frame, text = "Reservation Confirmed!", font=("Times New Roman",14,"bold"),
                  bg="lightgreen", fg="blue").pack(pady=5)
         
         #Confirmation Number
         tk.Label(self.current_frame, text=f"Confirmation #: {booking['confirmation_number']}",
-                 font=("Arial",14,"bold"), bg="lightgreen", fg="blue").pack(pady=5)
+                 font=("Times New Roman",14,"bold"), bg="lightgreen", fg="blue").pack(pady=5)
         
         #Guest Info
         tk.Label(self.current_frame, text=f"Name: {booking['guest_name']}\n"
                  f"Email: {booking['guest_email']}\n"
                  f"Phone: {booking['guest_phone']}",
-                 font=("Arial",11), bg="lightgreen").pack(pady=5)
+                 font=("Times New Roman",11), bg="lightgreen").pack(pady=5)
         
         #Room and Dates
         tk.Label(self.current_frame,text=f"Room: {room.room_type}\n"
                  f"Check-In Date: {prefs['check_in']}\n"
                  f"Check-Out Date: {prefs['check_out']}\n"
                  f"Total: ${booking['total_price']:.2f}",
-                 font=("Arial",11), bg="lightgreen").pack(pady=10) 
+                 font=("Times New Roman",11), bg="lightgreen").pack(pady=10) 
         
         #Email Notification
         tk.Label(self.current_frame, text="Confirmation Email Has Been Sent", bg="lightgreen",
-                 font=("Arial",10, "italic"), fg="darkgreen").pack(pady=10)
+                 font=("Times New Roman",10, "italic"), fg="darkgreen").pack(pady=10)
         
         #Return Button
         self.createButton(buttonText="Return to Homepage",color="blue",toDo=self.show_homepage,space=20,size=13)
@@ -464,12 +474,12 @@ class BestHotelBookingGroup:
         Sees if reservation exists, if so move onto modify screen
         """
         #Update screen with new menu display
-        self.updateScreen(bColor=None,xSize=20,ySize=20)
+        self.updateScreen(bColor="lemon chiffon",xSize=20,ySize=20)
 
-        tk.Label(self.current_frame, text="Modify Reservation", font=("Arial",18, "bold")).pack(pady=20)
-        tk.Label(self.current_frame, text="Confirmation Number:").pack()
+        tk.Label(self.current_frame, text="Modify Reservation", bg=("lemon chiffon"), font=("Times New Roman", 18, "bold")).pack(pady=20)
+        tk.Label(self.current_frame, text="Confirmation Number:", bg=("lemon chiffon"), font=("Times New Roman", 12, "bold")).pack()
 
-        conf_entry = tk.Entry(self.current_frame, width=30, font=("Arial",12))
+        conf_entry = tk.Entry(self.current_frame, width=30, font=("Times New Roman",12))
         conf_entry.pack(pady=10)
         method=self.modify_booking_screen
 
@@ -492,9 +502,9 @@ class BestHotelBookingGroup:
             - Card Number
         """
         #Update screen with new menu display
-        self.updateScreen(bColor=None,xSize=20,ySize=20)
+        self.updateScreen(bColor="lemon chiffon",xSize=20,ySize=20)
 
-        tk.Label(self.current_frame, text="Modify Reservation", font=("Arial", 16, "bold")).pack(pady=10)
+        tk.Label(self.current_frame, text="Modify Reservation", font=("Times New Roman", 16, "bold")).pack(pady=10)
 
         #Current Booking
         old_frame = tk.LabelFrame(self.current_frame, text="Current Reservation",padx=10,pady=10,bg="lightyellow")
@@ -594,12 +604,12 @@ class BestHotelBookingGroup:
 
         If it exists they will proceed to the next step in the cancellation process
         """
-        self.updateScreen(bColor=None,xSize=20,ySize=20)
+        self.updateScreen(bColor="lemon chiffon",xSize=20,ySize=20)
 
-        tk.Label(self.current_frame, text="Cancel Reservation", font=("Arial",18,"bold")).pack(pady=20)
-        tk.Label(self.current_frame, text="Confirmation Number:").pack()
+        tk.Label(self.current_frame, text="Cancel Reservation", bg=("lemon chiffon"), font=("Times New Roman", 18, "bold")).pack(pady=20)
+        tk.Label(self.current_frame, text="Confirmation Number:", bg=("lemon chiffon"), font=("Times New Roman", 12, "bold")).pack()
 
-        conf_entry = tk.Entry(self.current_frame, width=30, font=("Arial",12))
+        conf_entry = tk.Entry(self.current_frame, width=30, font=("Times New Roman",12))
         conf_entry.pack(pady=10)
         method=self.confirm_cancel
 
@@ -616,7 +626,7 @@ class BestHotelBookingGroup:
         """
         # Update screen with new menu display
         self.updateScreen(bColor="lightyellow",xSize=20,ySize=20)
-        tk.Label(self.current_frame, text="Confirm Cancellation",font=("Arial",16,"bold"),
+        tk.Label(self.current_frame, text="Confirm Cancellation",font=("Times New Roman",16,"bold"),
                  bg="lightyellow").pack(pady=10)
         info_frame = tk.LabelFrame(self.current_frame,text="Reservation",padx=10,pady=10,bg="lightyellow")
         info_frame.pack(fill="x", pady=10)
@@ -646,13 +656,13 @@ class BestHotelBookingGroup:
         to be able to view hotel report
         """
         # Update screen with new menu display
-        self.updateScreen(bColor=None,xSize=20,ySize=20)
+        self.updateScreen(bColor="lemon chiffon",xSize=20,ySize=20)
 
-        tk.Label(self.current_frame, text="Admin Login", font=("Arial",18,"bold")).pack(pady=20)
-        tk.Label(self.current_frame, text="Username:").pack(pady=5)
+        tk.Label(self.current_frame, text="Admin Login", bg=("lemon chiffon"), font=("Times New Roman", 18, "bold")).pack(pady=20)
+        tk.Label(self.current_frame, text="Username:", bg=("lemon chiffon"), font=("Times New Roman", 12, "bold")).pack(pady=5)
         user_entry = tk.Entry(self.current_frame, width=30)
         user_entry.pack()
-        tk.Label(self.current_frame, text="Password:").pack(pady=5)
+        tk.Label(self.current_frame, text="Password:", bg=("lemon chiffon"), font=("Times New Roman", 12, "bold")).pack(pady=5)
         pass_entry = tk.Entry(self.current_frame, width=30, show="*")
         pass_entry.pack()
 
@@ -675,9 +685,9 @@ class BestHotelBookingGroup:
         a report for reservations of a certain date range
         """
         # Update screen with new menu display
-        self.updateScreen(bColor=None,xSize=20,ySize=20)
+        self.updateScreen(bColor="lemon chiffon",xSize=20,ySize=20)
 
-        tk.Label(self.current_frame, text="Report Options", font=("Arial", 18, "bold")).pack(pady=20)
+        tk.Label(self.current_frame, text="Report Options", font=("Times New Roman", 18, "bold")).pack(pady=20)
         report_type = tk.StringVar(value="all")
         tk.Radiobutton(self.current_frame, text="All Reservations", variable=report_type,
                        value="all").pack(anchor="w",padx=20,pady=5)
@@ -722,8 +732,8 @@ class BestHotelBookingGroup:
         go back to homepage(main menu)
         """
         # Update screen with new menu display
-        self.updateScreen(bColor=None,xSize=20,ySize=20)
-        tk.Label(self.current_frame, text="Hotel Reservation Report", font=("Arial", 18, "bold")).pack(pady=10)
+        self.updateScreen(bColor="lemon chiffon",xSize=20,ySize=20)
+        tk.Label(self.current_frame, text="Hotel Reservation Report", font=("Times New Roman", 18, "bold")).pack(pady=10)
         # Calculate Statistics
         total_revenue = sum(b.get('total_price', 0) for b in bookings
                             if b.get('status') == 'CONFIRMED')
