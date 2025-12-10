@@ -11,6 +11,7 @@ import os
 import tkinter as tk
 from tkinter import ttk, messagebox, scrolledtext
 from datetime import datetime, timedelta
+from PIL import Image, ImageTk
 
 # Import from other modules
 from models import Room
@@ -155,10 +156,19 @@ class BestHotelBookingGroup:
         self.updateScreen(bColor="lemon chiffon",xSize=0,ySize=0)
         #Title
         #degree_symbol = "\u00B0"
+        
         tk.Label(self.current_frame, text="Hotel Reservation System", 
                 font=("Georgia", 30, "bold"), bg="lemon chiffon").pack(pady=30)
         tk.Label(self.current_frame, text="Welcome esteemed guest, to the greatest Hotel in the entire universe!", 
                 font=("Georgia", 18, "bold"), bg="lemon chiffon").pack(pady=10)
+        image_path = "C:\\Users\\colle\\OneDrive\\Documents\\Comp 380\\GroupProj\\Borat-Thumbs-Up-Excited-meme-6.jpg"  # Update this path to your image file
+        image = Image.open(image_path)
+        image = image.resize((500, 400), Image.LANCZOS)  # Resize image to fit
+        photo = ImageTk.PhotoImage(image)
+        image_label = tk.Label(self.current_frame, image=photo, bg="lemon chiffon")
+        image_label.image = photo  # Keep a reference to avoid garbage collection
+        image_label.place(x=100, y=300)
+        #image_label.pack(pady=0)  # Add some padding around the image
         #Create Reservation Button
         self.createButton(buttonText="Create a Reservation", color="#023553", toDo=self.preferences, space=10,size=12)
         #Modify Reservation Button
@@ -197,6 +207,15 @@ class BestHotelBookingGroup:
         check_out_entry = tk.Entry(self.current_frame,width=20)
         check_out_entry.pack()
         check_out_entry.insert(0, (datetime.now() + timedelta(days=2)).strftime("%Y-%m-%d"))
+
+        image_path = "C:\\Users\\colle\\OneDrive\\Documents\\Comp 380\\GroupProj\\Borat-Thumbs-Up-Excited-meme-6.jpg"  # Update this path to your image file
+        image = Image.open(image_path)
+        image = image.resize((500, 400), Image.LANCZOS)  # Resize image to fit
+        photo = ImageTk.PhotoImage(image)
+        image_label = tk.Label(self.current_frame, image=photo, bg="lemon chiffon")
+        image_label.image = photo  # Keep a reference to avoid garbage collection
+        image_label.place(x=950, y=300)
+        
         #Number of guests dropdown menu
         tk.Label(self.current_frame, text="Guests:", bg=("lemon chiffon"),pady=10).pack()
         guests_var = tk.StringVar(value="1")
@@ -485,6 +504,14 @@ class BestHotelBookingGroup:
         conf_entry.pack(pady=10)
         method=self.modify_booking_screen
 
+        image_path = "C:\\Users\\colle\\OneDrive\\Documents\\Comp 380\\GroupProj\\Borat-Thumbs-Up-Excited-meme-6.jpg"  # Update this path to your image file
+        image = Image.open(image_path)
+        image = image.resize((500, 400), Image.LANCZOS)  # Resize image to fit
+        photo = ImageTk.PhotoImage(image)
+        image_label = tk.Label(self.current_frame, image=photo, bg="lemon chiffon")
+        image_label.image = photo  # Keep a reference to avoid garbage collection
+        image_label.place(x=100, y=300)        
+
         #Buttons
         self.createButton(buttonText="Search",color="#023553",toDo=lambda: self.search(conf_entry, method),space=10,size=12)
         self.createButton(buttonText="Back",color="gray",toDo=self.show_homepage,space=0,size=12)
@@ -615,6 +642,14 @@ class BestHotelBookingGroup:
         conf_entry.pack(pady=10)
         method=self.confirm_cancel
 
+        image_path = "C:\\Users\\colle\\OneDrive\\Documents\\Comp 380\\GroupProj\\Borat-Thumbs-Up-Excited-meme-6.jpg"  # Update this path to your image file
+        image = Image.open(image_path)
+        image = image.resize((500, 400), Image.LANCZOS)  # Resize image to fit
+        photo = ImageTk.PhotoImage(image)
+        image_label = tk.Label(self.current_frame, image=photo, bg="lemon chiffon")
+        image_label.image = photo  # Keep a reference to avoid garbage collection
+        image_label.place(x=100, y=300)        
+
         # Buttons
         self.createButton(buttonText="Search",color="#023553",toDo=lambda: self.search(conf_entry,method),space=10,size=12)
         self.createButton(buttonText="Back",color="gray",toDo=self.show_homepage,space=0,size=12)
@@ -668,6 +703,14 @@ class BestHotelBookingGroup:
         pass_entry = tk.Entry(self.current_frame, width=30, show="*")
         pass_entry.pack()
 
+        image_path = "C:\\Users\\colle\\OneDrive\\Documents\\Comp 380\\GroupProj\\Borat-Thumbs-Up-Excited-meme-6.jpg"  # Update this path to your image file
+        image = Image.open(image_path)
+        image = image.resize((500, 400), Image.LANCZOS)  # Resize image to fit
+        photo = ImageTk.PhotoImage(image)
+        image_label = tk.Label(self.current_frame, image=photo, bg="lemon chiffon")
+        image_label.image = photo  # Keep a reference to avoid garbage collection
+        image_label.place(x=100, y=300)        
+
         def login():
             """Verifies Employee Login: sees if user is an employee"""
             if user_entry.get() == self.admin_user and pass_entry.get() == self.admin_pass:
@@ -676,8 +719,8 @@ class BestHotelBookingGroup:
                 messagebox.showerror("ERROR", "Invalid Credentials")
         
         # Buttons
-        self.createButton(buttonText="Login",color="#023553",toDo=login,space=20,size=12)
-        self.createButton(buttonText="Back",color="gray",toDo=self.show_homepage,space=0,size=12)
+        self.createButton(buttonText="Login", color="#023553", toDo=login, space=20, size=12)
+        self.createButton(buttonText="Back", color="gray", toDo=self.show_homepage, space=0,size=12)
 
     def show_report_options(self):
         """
@@ -687,7 +730,7 @@ class BestHotelBookingGroup:
         a report for reservations of a certain date range
         """
         # Update screen with new menu display
-        self.updateScreen(bColor="lemon chiffon",xSize=20,ySize=20)
+        self.updateScreen(bColor="lemon chiffon", xSize=20,ySize=20)
 
         tk.Label(self.current_frame, text="Report Options", font=("Times New Roman", 18, "bold")).pack(pady=20)
         report_type = tk.StringVar(value="all")
