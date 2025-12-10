@@ -162,7 +162,7 @@ class BestHotelBookingGroup:
         tk.Label(self.current_frame, text="Welcome esteemed guest, to the greatest Hotel in the entire universe!", 
                 font=("Georgia", 18, "bold"), bg="lemon chiffon").pack(pady=10)
         
-        image_path = "C:\\Users\\colle\\OneDrive\\Documents\\Comp 380\\GroupProj\\Borat-Thumbs-Up-Excited-meme-6.jpg"  # Update this path to your image file
+        image_path = "/Users/javiers/Documents/pics/ChecoWin.jpg"  # Update this path to your image file
         image = Image.open(image_path)
         image = image.resize((500, 400), Image.LANCZOS)  # Resize image to fit
         rounded_image = self.create_rounded_image(image, 30)
@@ -232,7 +232,7 @@ class BestHotelBookingGroup:
         check_out_entry.pack()
         check_out_entry.insert(0, (datetime.now() + timedelta(days=2)).strftime("%Y-%m-%d"))
 
-        image_path = "C:\\Users\\colle\\OneDrive\\Documents\\Comp 380\\GroupProj\\Borat-Thumbs-Up-Excited-meme-6.jpg"  # Update this path to your image file
+        image_path = "/Users/javiers/Documents/pics/ChecoWin.jpg"  # Update this path to your image file
         image = Image.open(image_path)
         image = image.resize((500, 400), Image.LANCZOS)  # Resize image to fit
         photo = ImageTk.PhotoImage(image)
@@ -528,7 +528,7 @@ class BestHotelBookingGroup:
         conf_entry.pack(pady=10)
         method=self.modify_booking_screen
 
-        image_path = "C:\\Users\\colle\\OneDrive\\Documents\\Comp 380\\GroupProj\\Borat-Thumbs-Up-Excited-meme-6.jpg"  # Update this path to your image file
+        image_path = "/Users/javiers/Documents/pics/ChecoWin.jpg"  # Update this path to your image file
         image = Image.open(image_path)
         image = image.resize((500, 400), Image.LANCZOS)  # Resize image to fit
         photo = ImageTk.PhotoImage(image)
@@ -666,7 +666,7 @@ class BestHotelBookingGroup:
         conf_entry.pack(pady=10)
         method=self.confirm_cancel
 
-        image_path = "C:\\Users\\colle\\OneDrive\\Documents\\Comp 380\\GroupProj\\Borat-Thumbs-Up-Excited-meme-6.jpg"  # Update this path to your image file
+        image_path = "/Users/javiers/Documents/pics/ChecoWin.jpg"  # Update this path to your image file
         image = Image.open(image_path)
         image = image.resize((500, 400), Image.LANCZOS)  # Resize image to fit
         photo = ImageTk.PhotoImage(image)
@@ -727,7 +727,7 @@ class BestHotelBookingGroup:
         pass_entry = tk.Entry(self.current_frame, width=30, show="*")
         pass_entry.pack()
 
-        image_path = "C:\\Users\\colle\\OneDrive\\Documents\\Comp 380\\GroupProj\\Borat-Thumbs-Up-Excited-meme-6.jpg"  # Update this path to your image file
+        image_path = "/Users/javiers/Documents/pics/ChecoWin.jpg"  # Update this path to your image file
         image = Image.open(image_path)
         image = image.resize((500, 400), Image.LANCZOS)  # Resize image to fit
         photo = ImageTk.PhotoImage(image)
