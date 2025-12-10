@@ -65,15 +65,17 @@ class BestHotelBookingGroup:
         #1 - Included", "2 - $35", "3 - $90
         self.rooms = [
             Room("R000", "Single", 1, 1, 100.0, ["None"]),
-            Room("R001", "Single", 1, 1, 110.0, ["WiFi - $10"]),
-            Room("R002", "Double", 1, 1, 125.0, ["Air Conditioning - $25"]),
-            Room("R003", "Suite", 4, 2, 500.0, ["Bathtub - $38"]),
-            Room("R004", "Suite", 4, 2, 500.0, ["Mini-Fridge - $52"]),
-            Room("R005", "Single", 1, 1, 100.0, ["WiFi - $10", "Air Conditioning - $25"]),
-            Room("R006", "Double", 2, 1, 150.0, ["WiFi - $10", "Air Conditioning - $25", "Bathtub - $38"]),
-            Room("R007", "Suite", 4, 2, 250.0, ["Bathtub - $38", "Mini-Fridge - $52"]),
-            Room("R008", "Suite", 4, 2, 250.0, ["WiFi - $10", "Air Conditioning - $25", "Bathtub - $38"]),
-            Room("R009", "Suite", 4, 2, 250.0, ["WiFi - $10", "Air Conditioning - $25", "Bathtub - $38", "Mini-Fridge - $52"])
+            Room("R001", "Double", 1, 1, 150.0, ["None"]),
+            Room("R002", "Suite", 1, 1, 300.0, ["None"]),
+            Room("R003", "Single", 1, 1, 110.0, ["WiFi - $10"]),
+            Room("R004", "Double", 1, 1, 125.0, ["Air Conditioning - $25"]),
+            Room("R005", "Suite", 4, 2, 500.0, ["Bathtub - $38"]),
+            Room("R006", "Suite", 4, 2, 500.0, ["Mini-Fridge - $52"]),
+            Room("R007", "Single", 1, 1, 100.0, ["WiFi - $10", "Air Conditioning - $25"]),
+            Room("R008", "Double", 2, 1, 150.0, ["WiFi - $10", "Air Conditioning - $25", "Bathtub - $38"]),
+            Room("R009", "Suite", 4, 2, 250.0, ["Bathtub - $38", "Mini-Fridge - $52"]),
+            Room("R0010", "Suite", 4, 2, 250.0, ["WiFi - $10", "Air Conditioning - $25", "Bathtub - $38"]),
+            Room("R0011", "Suite", 4, 2, 250.0, ["WiFi - $10", "Air Conditioning - $25", "Bathtub - $38", "Mini-Fridge - $52"])
         ]
 
         #Admin credentials for report access
@@ -93,7 +95,7 @@ class BestHotelBookingGroup:
     def createButton(self,buttonText,color,toDo,space,size):
         """This creates similar buttons so code doesn't duplicate"""
         tk.Button(self.current_frame, text=buttonText, 
-                font=("Times New Roman", size), bg=color, fg="black",
+                font=("Times New Roman", size), bg=color, fg="lemon chiffon",
                 command=toDo, width=30, height=2).pack(pady=space)
 
     def clear_screen(self):
@@ -158,13 +160,13 @@ class BestHotelBookingGroup:
         tk.Label(self.current_frame, text="Welcome esteemed guest, to the greatest Hotel in the entire universe!", 
                 font=("Georgia", 18, "bold"), bg="lemon chiffon").pack(pady=10)
         #Create Reservation Button
-        self.createButton(buttonText="Create a Reservation", color="green", toDo=self.preferences, space=10,size=12)
+        self.createButton(buttonText="Create a Reservation", color="#023553", toDo=self.preferences, space=10,size=12)
         #Modify Reservation Button
-        self.createButton(buttonText="Modify a Reservation", color="orange", toDo=self.show_modify, space=10,size=12)
+        self.createButton(buttonText="Modify a Reservation", color="#023553", toDo=self.show_modify, space=10,size=12)
         #Cancel Reservation Button
-        self.createButton(buttonText="Cancel a Reservation", color="red", toDo=self.show_cancel, space=10,size=12)
+        self.createButton(buttonText="Cancel a Reservation", color="#023553", toDo=self.show_cancel, space=10,size=12)
         #Admin Report Button
-        self.createButton(buttonText="Admin Report", color="purple", toDo=self.show_login, space=10,size=12)
+        self.createButton(buttonText="Admin Report", color="#023553", toDo=self.show_login, space=10,size=12)
         
     #Resrvation
     def preferences(self):
@@ -253,7 +255,7 @@ class BestHotelBookingGroup:
             self.room_GUI(available, prefs)
 
         # Buttons
-        self.createButton(buttonText="Search Rooms",color="blue",toDo=search,space=15,size=12)
+        self.createButton(buttonText="Search Rooms",color="#023553",toDo=search,space=15,size=12)
         self.createButton(buttonText="Back",color="gray",toDo=self.show_homepage,space=0,size=11)
         
     def room_GUI(self, available_rooms, prefs):
@@ -335,7 +337,7 @@ class BestHotelBookingGroup:
             self.guest_Details(booking_info)
 
         #Buttons
-        self.createButton(buttonText="Continue",color="green",toDo=next_step,space=10,size=12)
+        self.createButton(buttonText="Continue",color="#023553",toDo=next_step,space=10,size=12)
         self.createButton(buttonText="Back",color="gray",toDo=lambda: self.preferences(),space=0,size=11)
 
     def guest_Details(self, booking_info):
@@ -415,7 +417,7 @@ class BestHotelBookingGroup:
             self.show_confirmation(booking, room, prefs)
 
         #Buttons
-        self.createButton(buttonText="Confirm Reservation",color="green",toDo=confirm,space=15,size=12)
+        self.createButton(buttonText="Confirm Reservation",color="#023553",toDo=confirm,space=15,size=12)
         self.createButton(buttonText="Back",color="gray",toDo=lambda: self.room_GUI([room], prefs),space=0,size=11)
         
     def show_confirmation(self, booking, room, prefs):
@@ -484,7 +486,7 @@ class BestHotelBookingGroup:
         method=self.modify_booking_screen
 
         #Buttons
-        self.createButton(buttonText="Search",color="blue",toDo=lambda: self.search(conf_entry, method),space=10,size=12)
+        self.createButton(buttonText="Search",color="#023553",toDo=lambda: self.search(conf_entry, method),space=10,size=12)
         self.createButton(buttonText="Back",color="gray",toDo=self.show_homepage,space=0,size=12)
 
     def modify_booking_screen(self, old_conf, old_booking):
@@ -614,7 +616,7 @@ class BestHotelBookingGroup:
         method=self.confirm_cancel
 
         # Buttons
-        self.createButton(buttonText="Search",color="blue",toDo=lambda: self.search(conf_entry,method),space=10,size=12)
+        self.createButton(buttonText="Search",color="#023553",toDo=lambda: self.search(conf_entry,method),space=10,size=12)
         self.createButton(buttonText="Back",color="gray",toDo=self.show_homepage,space=0,size=12)
 
     def confirm_cancel(self,conf_num, booking):
@@ -674,7 +676,7 @@ class BestHotelBookingGroup:
                 messagebox.showerror("ERROR", "Invalid Credentials")
         
         # Buttons
-        self.createButton(buttonText="Login",color="blue",toDo=login,space=20,size=12)
+        self.createButton(buttonText="Login",color="#023553",toDo=login,space=20,size=12)
         self.createButton(buttonText="Back",color="gray",toDo=self.show_homepage,space=0,size=12)
 
     def show_report_options(self):
