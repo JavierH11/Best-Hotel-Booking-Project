@@ -11,7 +11,7 @@ import os
 import tkinter as tk
 from tkinter import ttk, messagebox, scrolledtext
 from datetime import datetime, timedelta
-from PIL import Image, ImageTk
+from PIL import Image, ImageTk, ImageDraw
 
 # Import from other modules
 from models import Room
@@ -161,22 +161,46 @@ class BestHotelBookingGroup:
                 font=("Georgia", 30, "bold"), bg="lemon chiffon").pack(pady=30)
         tk.Label(self.current_frame, text="Welcome esteemed guest, to the greatest Hotel in the entire universe!", 
                 font=("Georgia", 18, "bold"), bg="lemon chiffon").pack(pady=10)
+        
         image_path = "C:\\Users\\colle\\OneDrive\\Documents\\Comp 380\\GroupProj\\Borat-Thumbs-Up-Excited-meme-6.jpg"  # Update this path to your image file
         image = Image.open(image_path)
         image = image.resize((500, 400), Image.LANCZOS)  # Resize image to fit
-        photo = ImageTk.PhotoImage(image)
+        rounded_image = self.create_rounded_image(image, 30)
+        photo = ImageTk.PhotoImage(rounded_image)
+
         image_label = tk.Label(self.current_frame, image=photo, bg="lemon chiffon")
         image_label.image = photo  # Keep a reference to avoid garbage collection
         image_label.place(x=100, y=300)
         #image_label.pack(pady=0)  # Add some padding around the image
         #Create Reservation Button
-        self.createButton(buttonText="Create a Reservation", color="#023553", toDo=self.preferences, space=10,size=12)
+        self.createButton(buttonText="Book your stay with us here!", color="#023553", toDo=self.preferences, space=10,size=12)
         #Modify Reservation Button
-        self.createButton(buttonText="Modify a Reservation", color="#023553", toDo=self.show_modify, space=10,size=12)
+        self.createButton(buttonText="Need to make a change? Click here!", color="#023553", toDo=self.show_modify, space=10,size=12)
         #Cancel Reservation Button
-        self.createButton(buttonText="Cancel a Reservation", color="#023553", toDo=self.show_cancel, space=10,size=12)
+        self.createButton(buttonText="Something's come up? Cancel here!", color="#023553", toDo=self.show_cancel, space=10,size=12)
         #Admin Report Button
         self.createButton(buttonText="Admin Report", color="#023553", toDo=self.show_login, space=10,size=12)
+        
+    def create_rounded_image(self, image, radius):
+        """
+        Create a rounded image with the specified radius.
+
+        Args:
+            image (PIL.Image): The original image to be rounded.
+            radius (int): The radius for the rounded corners.
+
+        Returns:
+            PIL.Image: The rounded image.
+        """
+        # Create a mask for the rounded corners
+        mask = Image.new('L', image.size, 0)
+        draw = ImageDraw.Draw(mask)
+        draw.rounded_rectangle((0, 0, image.size[0], image.size[1]), radius=radius, fill=255)
+        
+        # Apply the mask to the image
+        rounded_image = Image.new('RGBA', image.size)
+        rounded_image.paste(image, (0, 0), mask)
+        return rounded_image
         
     #Resrvation
     def preferences(self):
@@ -194,7 +218,7 @@ class BestHotelBookingGroup:
         the reservation process
         """
         #Update screen with new menu display
-        self.updateScreen(bColor="lemon chiffon",xSize=20,ySize=20)
+        self.updateScreen(bColor="lemon chiffon",xSize=0,ySize=0)
         #Title
         tk.Label(self.current_frame, text="Choose your preferences!", font=("Times New Roman", 16, "bold"), bg=("lemon chiffon")).pack(pady=10)
         #Check-In Date Input
@@ -229,7 +253,7 @@ class BestHotelBookingGroup:
         amenity_check={}
         for amenity in ["WiFi - $10", "Air Conditioning - $25", "Bathtub - $38", "Mini-Fridge - $52"]:
             var = tk.BooleanVar()
-            tk.Checkbutton(self.current_frame,text=amenity, bg=("lemon chiffon"), variable=var).pack(anchor="w",padx=20)
+            tk.Checkbutton(self.current_frame,text=amenity, bg=("lemon chiffon"), variable=var).pack(anchor="center",padx=20)
             amenity_check[amenity] = var
 
         def search():
@@ -295,7 +319,7 @@ class BestHotelBookingGroup:
             prefs (dict): Preferences from step 1
         """   
         #Update screen with new menu display
-        self.updateScreen(bColor="lemon chiffon",xSize=20,ySize=20)
+        self.updateScreen(bColor="lemon chiffon",xSize=0,ySize=0)
 
         #Title
         tk.Label(self.current_frame, text="Select your desired room!", bg=("lemon chiffon"), font=("Times New Roman", 16, "bold")).pack(pady=10)
@@ -376,7 +400,7 @@ class BestHotelBookingGroup:
             booking_info (dict): Room and user selections from previous steps (steps 1 and 2)
         """
         #Update window with new menu display
-        self.updateScreen(bColor="lemon chiffon",xSize=20,ySize=20)
+        self.updateScreen(bColor="lemon chiffon", xSize = 0, ySize = 0)
 
         #Title
         tk.Label(self.current_frame, text="Guest Details", font=("Times New Roman", 16, "bold"), bg=("lemon chiffon")).pack(pady=10)
@@ -456,7 +480,7 @@ class BestHotelBookingGroup:
             prefs (dict): Booking preferences
         """
         #Update Screen with new menu display
-        self.updateScreen(bColor="lightgreen",xSize=20,ySize=20)
+        self.updateScreen(bColor = "lightgreen", xSize = 0, ySize = 0)
 
         #Title
         tk.Label(self.current_frame, text = "Reservation Confirmed!", font=("Times New Roman",14,"bold"),
@@ -495,7 +519,7 @@ class BestHotelBookingGroup:
         Sees if reservation exists, if so move onto modify screen
         """
         #Update screen with new menu display
-        self.updateScreen(bColor="lemon chiffon",xSize=20,ySize=20)
+        self.updateScreen(bColor="lemon chiffon", xSize = 0, ySize = 0)
 
         tk.Label(self.current_frame, text="Modify Reservation", bg=("lemon chiffon"), font=("Times New Roman", 18, "bold")).pack(pady=20)
         tk.Label(self.current_frame, text="Confirmation Number:", bg=("lemon chiffon"), font=("Times New Roman", 12, "bold")).pack()
@@ -633,7 +657,7 @@ class BestHotelBookingGroup:
 
         If it exists they will proceed to the next step in the cancellation process
         """
-        self.updateScreen(bColor="lemon chiffon",xSize=20,ySize=20)
+        self.updateScreen(bColor="lemon chiffon", xSize = 0, ySize = 0)
 
         tk.Label(self.current_frame, text="Cancel Reservation", bg=("lemon chiffon"), font=("Times New Roman", 18, "bold")).pack(pady=20)
         tk.Label(self.current_frame, text="Confirmation Number:", bg=("lemon chiffon"), font=("Times New Roman", 12, "bold")).pack()
@@ -693,7 +717,7 @@ class BestHotelBookingGroup:
         to be able to view hotel report
         """
         # Update screen with new menu display
-        self.updateScreen(bColor="lemon chiffon",xSize=20,ySize=20)
+        self.updateScreen(bColor="lemon chiffon",xSize=0,ySize=0)
 
         tk.Label(self.current_frame, text="Admin Login", bg=("lemon chiffon"), font=("Times New Roman", 18, "bold")).pack(pady=20)
         tk.Label(self.current_frame, text="Username:", bg=("lemon chiffon"), font=("Times New Roman", 12, "bold")).pack(pady=5)
