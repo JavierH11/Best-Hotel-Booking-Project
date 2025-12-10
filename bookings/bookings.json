@@ -36,7 +36,7 @@
     "check_out": "2025-12-14",
     "nights": 1,
     "total_price": 100.0,
-    "status": "CONFIRMED"
+    "status": "CANCELLED"
   },
   {
     "confirmation_number": "#GSB2NNBC",
@@ -49,6 +49,97 @@
     "check_out": "2025-12-07",
     "nights": 1,
     "total_price": 250.0,
-    "status": "CONFIRMED"
+    "status": "CANCELLED"
+  },
+  {
+    "confirmation_number": "#KXLB0RYO",
+    "room_id": "R0011",
+    "guest_name": "Daniel C",
+    "guest_email": "besthoteldemo@gmail.com",
+    "guest_phone": "0123456789",
+    "room_type": "Suite",
+    "check_in": "2025-12-11",
+    "check_out": "2025-12-12",
+    "nights": 1,
+    "total_price": 250.0,
+    "status": "CANCELLED"
+  },
+  {
+    "confirmation_number": "#4C3X1SXT",
+    "room_id": "R0010",
+    "guest_name": "Armando R",
+    "guest_email": "besthoteldemo@gmail.com",
+    "guest_phone": "0123456789",
+    "room_type": "Suite",
+    "check_in": "2025-12-11",
+    "check_out": "2025-12-12",
+    "nights": 1,
+    "total_price": 250.0,
+    "status": "CANCELLED"
+  },
+  {
+    "confirmation_number": "#PD9XJIPY",
+    "room_id": "R008",
+    "guest_name": "Dominik A",
+    "guest_email": "besthoteldemo@gmail.com",
+    "guest_phone": "0123456789",
+    "room_type": "Double",
+    "check_in": "2025-12-11",
+    "check_out": "2025-12-12",
+    "nights": 1,
+    "total_price": 150.0,
+    "status": "CANCELLED"
+  },
+  {
+    "confirmation_number": "#6C9OBI2O",
+    "room_id": "R006",
+    "guest_name": "Ronaldo C",
+    "guest_email": "besthoteldemo@gmail.com",
+    "guest_phone": "0123456789",
+    "room_type": "Suite",
+    "check_in": "2025-12-11",
+    "check_out": "2025-12-12",
+    "nights": 1,
+    "total_price": 500.0,
+    "status": "CANCELLED"
+  },
+  {
+    "confirmation_number": "#PW8PNY7J",
+    "room_id": "R009",
+    "guest_name": "Umar T",
+    "guest_email": "besthoteldemo@gmail.com",
+    "guest_phone": "0123456789",
+    "room_type": "Suite",
+    "check_in": "2025-12-11",
+    "check_out": "2025-12-12",
+    "nights": 1,
+    "total_price": 250.0,
+    "status": "CANCELLED"
+  },
+  {
+    "confirmation_number": "#O0PP6FDO",
+    "room_id": "R003",
+    "guest_name": "Ranger M",
+    "guest_email": "besthoteldemo@gmail.com",
+    "guest_phone": "0123456789",
+    "room_type": "Single",
+    "check_in": "2025-12-11",
+    "check_out": "2025-12-12",
+    "nights": 1,
+    "total_price": 110.0,
+    "status": "CANCELLED"
+  },
+  {
+    "confirmation_number": "#ZV5T6BSO",
+    "room_id": "R000",
+    "guest_name": "Ranger M",
+    "guest_email": "besthoteldemo@gmail.com",
+    "guest_phone": "0123456789",
+    "room_type": "Single",
+    "check_in": "2025-12-15",
+    "check_out": "2025-12-21",
+    "nights": 6,
+    "total_price": 600.0,
+    "status": "CANCELLED"
   }
 ]
