@@ -162,7 +162,6 @@ class BestHotelBookingGroup:
         tk.Label(self.current_frame, text="Welcome esteemed guest, to the greatest Hotel in the entire universe!", 
                 font=("Georgia", 18, "bold"), bg="lemon chiffon").pack(pady=10)
         
-        #image_path = "/Users/javiers/Downloads/mainpage.png"  # Update this path to your image file
         BASE_DIR = os.path.dirname(os.path.abspath(__file__))
         image_path = os.path.join(BASE_DIR, "imageResources", "mainpage.png")
 
