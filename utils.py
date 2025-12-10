@@ -41,14 +41,28 @@ def load_bookings():
     return []
 
 def update_booking_status(conf_num, new_status):
-    #Javier Herrera 11/21/2025
-    """Update booking status in JSON file"""
+    # Javier Herrera 11/21/2025
+    """
+    Update booking status in JSON file.
+
+    Returns:
+        bool: True if a matching booking was found and updated, False otherwise.
+    """
     bookings = load_bookings()
+    found = False
+
     for booking in bookings:
         if booking.get('confirmation_number') == conf_num:
             booking['status'] = new_status
-    with open("bookings/bookings.json", "w") as f:
-        json.dump(bookings, f, indent=2)
+            found = True
+            break
+
+    if found:
+        with open("bookings/bookings.json", "w") as f:
+            json.dump(bookings, f, indent=2)
+
+    return found
+
 
 def validate_date(date_string):
     
@@ -106,7 +120,8 @@ def find_booking(conf_num):
     """
     bookings = load_bookings()
     for booking in bookings:
-        if (booking.get('confirmation_number') == conf_num and booking.get('status') != 'CANCELLED'):
+        # CHANGED LINE: removed "and booking.get('status') != 'CANCELLED'"
+        if booking.get('confirmation_number') == conf_num:
             return booking
     return None
 #```
