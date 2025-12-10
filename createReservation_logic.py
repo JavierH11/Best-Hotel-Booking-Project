@@ -175,7 +175,7 @@ def cancel_reservation(conf_num, reservation, sender_email, sender_password):
     if success:
         #Generate cancellation confirmation number for user
         cancel_conf_num = f"CANCEL-{generate_conf_number()}"
-        email_subject = "reservation Cancelled - Best Hotel Booking"
+        email_subject = "Reservation Cancelled - Best Hotel Booking"
         email_body = f"""Dear {reservation['guest_name']},
 
 Your reservation has been cancelled. We apologize for not being good enough for you!
