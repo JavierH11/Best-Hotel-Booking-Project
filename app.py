@@ -943,8 +943,8 @@ class BestHotelBookingGroup:
         go back to homepage(main menu)
         """
         # Update screen with new menu display
-        self.updateScreen(bColor="lemon chiffon",xSize=20,ySize=20)
-        tk.Label(self.current_frame, text="Hotel Reservation Report", font=("Times New Roman", 18, "bold")).pack(pady=10)
+        self.updateScreen(bColor="lemon chiffon",xSize=0,ySize=0)
+        tk.Label(self.current_frame, text="Hotel Reservation Report", font=("Georgia", 22, "bold"), bg = "lemon chiffon").pack(pady=10)
         # Calculate Statistics
         total_revenue = sum(b.get('total_price', 0) for b in bookings
                             if b.get('status') == 'CONFIRMED')
