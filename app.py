@@ -92,8 +92,8 @@ class BestHotelBookingGroup:
     def createButton(self,buttonText,color,toDo,space,size):
         """This creates similar buttons so code doesn't duplicate"""
         tk.Button(self.current_frame, text=buttonText, 
-                font=("Times New Roman", size), bg=color, fg="lemon chiffon",
-                command=toDo, width=30, height=2).pack(pady=space)
+                font=("Times New Roman", size, "bold"), bg = color, fg = "lemon chiffon",
+                command = toDo, width = 30, height = 2).pack(pady = space)
 
     def clear_screen(self):
         """
@@ -103,7 +103,7 @@ class BestHotelBookingGroup:
         if self.current_frame:
             self.current_frame.destroy()
 
-    def updateScreen(self,bColor,xSize,ySize):
+    def updateScreen(self, bColor, xSize, ySize):
         """
         Updates the window screen to display the new function/menu
         Clears the window to show new interactive menu
@@ -149,7 +149,7 @@ class BestHotelBookingGroup:
         The first screen users will see when launching program.
         """
         #Update screen with new menu display
-        self.updateScreen(bColor="lemon chiffon",xSize=0,ySize=0)
+        self.updateScreen(bColor = "lemon chiffon", xSize = 0, ySize = 0)
         #Title
         #degree_symbol = "\u00B0"
         
@@ -742,7 +742,7 @@ class BestHotelBookingGroup:
             }
 
             modify_reservation(old_conf, new_guest_info, new_prefs, room, self.email_sender, self.email_password)
-            messagebox.showinfo("SUCCESS", "Reservation Updated!")
+            messagebox.showinfo("SUCCESS", "Reservation Updated! An Email confirmation has been sent to you for your records. Enjoy your stay!")
             self.show_homepage()
 
         # Buttons
@@ -801,26 +801,38 @@ class BestHotelBookingGroup:
         """
         # Update screen with new menu display
         self.updateScreen(bColor="lightyellow", xSize = 0, ySize = 0)
-        tk.Label(self.current_frame, text="Confirm Cancellation",font=("Times New Roman",16,"bold"),
+        tk.Label(self.current_frame, text="Confirm Cancellation",font=("Georgia" , 22, "bold"),
                  bg="lightyellow").pack(pady=10)
-        info_frame = tk.LabelFrame(self.current_frame, text = "Reservation", padx= 10, pady = 10,bg = "lightyellow")
+        info_frame = tk.LabelFrame(self.current_frame, padx= 10, pady = 10,bg = "#023553")
         info_frame.pack(fill="x", pady=10)
+        info_frame_label = tk.Label(info_frame, text="Your Reservation Details:", font = ("Times New Roman", 20, "italic", "bold"), bg="#023553", fg="lemon chiffon")
+        info_frame_label.pack(side="top", anchor = "center")
 
         tk.Label(info_frame, text=f"Confirmation: {conf_num}\n"
                  f"Guest: {booking['guest_name']}\n"
                  f"Room: {booking['room_type']}\n"
                  f"Check-in: {booking['check_in']}\n"
-                 f"Total: ${booking['total_price']}", bg="lightyellow").pack(anchor="w")
+                 f"Total: ${booking['total_price']}", font = ("Times New Roman", 14, "bold"), bg="#023553", fg = ("lemon chiffon")).pack(anchor="center")
+        
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        image_path = os.path.join(BASE_DIR, "imageResources", "goodbye.jpg")
+        image = Image.open(image_path)
+        image = image.resize((500, 350), Image.LANCZOS)  # Resize image to fit
+        rounded_image = self.create_rounded_image(image, 30)
+        photo = ImageTk.PhotoImage(rounded_image)
+        image_label = tk.Label(self.current_frame, image=photo, bg="lemon chiffon")
+        image_label.image = photo  # Keep a reference to avoid garbage collection
+        image_label.place(x = 60, y = 420)
 
         def cancel():
             """Cancel Reservation: cancels the users reservation"""
             cancel_reservation(conf_num, booking, self.email_sender, self.email_password)
-            messagebox.showinfo("SUCCESS", "Reservation Cancelled!")
+            messagebox.showinfo("SUCCESS", "Reservation Cancelled! An Email confirmation has been sent to you for your records. We hope to see you again soon!")
             self.show_homepage()
 
         # Buttons
-        self.createButton(buttonText="Confirm Cancellation",color="red",toDo=cancel,space=20,size=12)
-        self.createButton(buttonText="Keep Reservation",color="green",toDo=self.show_homepage,space=0,size=12)
+        self.createButton(buttonText="Confirm Cancellation", color="red",toDo=cancel,space=20,size=12)
+        self.createButton(buttonText="Keep Reservation", color="green",toDo=self.show_homepage,space=0,size=12)
         
     #Report
     def show_login(self):
